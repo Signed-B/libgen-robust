@@ -12,6 +12,10 @@ license = { file = "LICENSE" }
 authors = [
   { name = "Beckett Hyde" }
 ]
+dependencies = [
+  "beautifulsoup4",
+  "requests",
+]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
