@@ -171,6 +171,10 @@ class LibgenSearch:
             db_error = soup.find("div", {"class": "alert alert-danger"})
             if db_error:
                 error_text = db_error.get_text(" ", strip=True).lower()
+                if "libgen_read" in error_text and "max_user_connections" in error_text:
+                    raise LibgenReadConnectionLimitError(
+                        "User libgen_read has exceeded max_user_connections"
+                    )
                 if "could not connect to the database" in error_text:
                     raise LibgenDatabaseConnectionError(
                         "Could not connect to the database"
@@ -255,9 +259,10 @@ class LibgenSearch:
         bold = cell.find("b")
         if bold and bold.get_text(strip=True):
             return bold.get_text(" ", strip=True)
-        link = cell.find("a")
-        if link and link.get_text(strip=True):
-            return link.get_text(" ", strip=True)
+        for link in cell.find_all("a"):
+            link_text = link.get_text(" ", strip=True)
+            if link_text and link_text.lower() != "b":
+                return link_text
         return cell.get_text(" ", strip=True) or None
 
     def _parse_add_edit_metadata(self, cell):
@@ -277,6 +282,38 @@ class LibgenSearch:
             return None, None, None
         date_added, date_last_modified, identifier = match.groups()
         return identifier, date_added, date_last_modified
+
+    def _parse_edition_link(self, cell) -> str | None:
+        for link in cell.find_all("a"):
+            href = link.get("href")
+            if href and href.startswith("edition.php?id="):
+                return href
+        return None
+
+    def _parse_series(self, cell, title_text: str | None) -> str | None:
+        bold = cell.find("b")
+        if not bold:
+            return None
+        bold_text = bold.get_text(" ", strip=True)
+        if not bold_text:
+            return None
+        if "series" in bold_text.lower():
+            return bold_text
+        return None
+
+    def _parse_isbn(self, cell) -> list[str] | None:
+        for font in cell.find_all("font"):
+            isbn_text = font.get_text(" ", strip=True)
+            if isbn_text:
+                return [part.strip() for part in isbn_text.split(";") if part.strip()]
+        return None
+
+    def _parse_file_id(self, cell) -> str | None:
+        for link in cell.find_all("a"):
+            href = link.get("href")
+            if href and href.startswith("/file.php?id="):
+                return href.split("=", 1)[1]
+        return None
 
     def _parse_md5_from_mirrors(self, mirrors: List[str]) -> str | None:
         for link in mirrors:
@@ -324,10 +361,22 @@ class LibgenSearch:
         title_index = header_map.get("title")
         if title_index is None:
             title_index = 0
+        title_text = self._parse_title_from_cell(cells[title_index])
+        series = self._parse_series(cells[0], title_text)
+        isbn = self._parse_isbn(cells[0])
+        edition_link = self._parse_edition_link(cells[0])
+        file_id = None
+        size_index = header_map.get("size")
+        if size_index is not None and size_index < len(cells):
+            file_id = self._parse_file_id(cells[size_index])
         return Book(
             id=id_from_meta or self._get_cell_text(cells, header_map.get("id")),
-            title=self._parse_title_from_cell(cells[title_index]),
+            title=title_text,
             author=self._get_cell_text(cells, header_map.get("author")),
+            series=series,
+            isbn=isbn,
+            file_id=file_id,
+            edition_link=edition_link,
             publisher=self._get_cell_text(cells, header_map.get("publisher")),
             year=self._get_cell_text(cells, header_map.get("year")),
             language=self._get_cell_text(cells, header_map.get("language")),
@@ -344,4 +393,8 @@ class LibgenSearch:
 
 
 class LibgenDatabaseConnectionError(RuntimeError):
+    pass
+
+
+class LibgenReadConnectionLimitError(RuntimeError):
     pass

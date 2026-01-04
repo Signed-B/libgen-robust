@@ -9,6 +9,7 @@ from libgen_bulk.book import Book
 from libgen_bulk.search import (
     LibgenDatabaseConnectionError,
     LibgenSearch,
+    LibgenReadConnectionLimitError,
     SearchField,
     SearchObject,
     SearchTopic,
@@ -39,6 +40,10 @@ def test_book_repr():
         id="1",
         title="Title",
         author="Author",
+        series="Series",
+        isbn=["123"],
+        file_id="10",
+        edition_link="edition.php?id=10",
         publisher="Publisher",
         year="2020",
         language="EN",
@@ -201,6 +206,18 @@ def test_get_search_table_db_error(monkeypatch):
         search.get_search_table()
 
 
+def test_get_search_table_read_connection_limit(monkeypatch):
+    search = _make_search()
+    response = SimpleNamespace(text=_load_fixture("libgen_error_user_libgen_read.html"))
+    monkeypatch.setattr(search, "get_search_page", Mock(return_value=response))
+
+    with pytest.raises(
+        LibgenReadConnectionLimitError,
+        match="User libgen_read has exceeded max_user_connections",
+    ):
+        search.get_search_table()
+
+
 def test_execute_parses_books(monkeypatch):
     search = _make_search()
     response = SimpleNamespace(text=_load_fixture("libgen_search_success.html"))
@@ -213,6 +230,10 @@ def test_execute_parses_books(monkeypatch):
     book = by_id["93098871"]
     assert book.title == "Think and grow rich on Brilliance Audio"
     assert book.author == "Stella, Fred; Gitomer, Jeffrey H.; Hill, Napoleon"
+    assert book.series is None
+    assert book.isbn == ["9781455810031", "1455810037"]
+    assert book.file_id == "93098871"
+    assert book.edition_link == "edition.php?id=137866771"
     assert book.publisher == "Think and Grow Rich on Brilliance Audio"
     assert book.year == "2011"
     assert book.language == "English"
@@ -234,6 +255,10 @@ def test_execute_parses_books(monkeypatch):
     assert third_book.size == 22000
     assert third_book.extension == "pdf"
     assert third_book.md5 == "987f731269600de29b2b17031d8b05f2"
+
+    series_book = by_id["98044506"]
+    assert series_book.series == "Think and Grow Rich Series"
+    assert series_book.isbn == ["9780698160750", "0698160754"]
 
 
 def test_execute_skips_invalid_md5(monkeypatch):

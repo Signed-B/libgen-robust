@@ -7,6 +7,10 @@ class Book:
         id,
         title,
         author,
+        series,
+        isbn,
+        file_id,
+        edition_link,
         publisher,
         year,
         language,
@@ -21,6 +25,10 @@ class Book:
         self.id = id
         self.title = title
         self.author = author
+        self.series = series
+        self.isbn = isbn
+        self.file_id = file_id
+        self.edition_link = edition_link
         self.publisher = publisher
         self.year = year
         self.language = language
