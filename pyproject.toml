@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "libgen-bulk"
 version = "0.1.0"
-description = "libgen-bulk command-line tool"
+description = "Libgen Bulk CLI: highly functional bulk downloading from libgen."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
