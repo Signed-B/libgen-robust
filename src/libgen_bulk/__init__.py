@@ -9,6 +9,7 @@ from .search import (
     SearchObject,
     SearchTopic,
 )
+from .select import Selector
 
 __all__ = [
     "__version__",
@@ -19,5 +20,6 @@ __all__ = [
     "SearchField",
     "SearchObject",
     "SearchTopic",
+    "Selector",
 ]
 __version__ = "0.1.0"
