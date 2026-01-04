@@ -1,4 +1,4 @@
-"""Module entry point for python -m libgen_robust."""
+"""Module entry point for python -m libgen_bulk."""
 
 from .cli import main
 

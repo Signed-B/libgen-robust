@@ -1,4 +1,4 @@
-"""Command-line interface for libgen-robust."""
+"""Command-line interface for libgen-bulk."""
 
 import argparse
 
@@ -7,13 +7,13 @@ from . import __version__
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="libgen-robust",
-        description="libgen-robust command-line interface",
+        prog="libgen-bulk",
+        description="libgen-bulk command-line interface",
     )
     parser.add_argument(
         "--version",
         action="version",
-        version=f"libgen-robust {__version__}",
+        version=f"libgen-bulk {__version__}",
     )
     return parser
 
