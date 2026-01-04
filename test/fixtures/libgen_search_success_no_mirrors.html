@@ -1,0 +1,1092 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="max-age=604800, must-revalidate">
+	<meta name="rating" content="general">
+	<!--<link href="/rss/index.php" rel="alternate" type="application/rss+xml" title="News" />-->
+	<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+	<title>Library Genesis</title>
+		
+	<!--[if IE 6]>
+	<style>
+		body {behavior: url("/csshover3.htc");}
+		#menu li .drop {background:url("img/drop.gif") no-repeat right 8px; 
+	</style>
+	<![endif]-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">	
+	
+<link href="/css/font.min.css" rel="stylesheet">	
+<style>
+nav.navbar .dropdown:hover > .dropdown-menu {
+ display: block; 
+}
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+			font-size: 3.5rem;
+		}
+	}
+
+.panel-heading .accordion-toggle:after {
+    font-family: "Glyphicons Halflings";  
+    content: "\e114";    
+    float: right;       
+    color: grey;         
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\e080";   
+}
+.tooltip-inner {
+    max-width: 350px;
+    width: 350px; 
+}
+h1 {
+	display: block; 
+	font-size: 1.8rem; 
+	font-weight: bold; 
+	font-family: Georgia, "Times New Roman", Times, serif;  color: #A00000; 
+}
+#tablelibgen td { 
+	font-family: "Pt Sans", Tahoma, Helvetica, sans-serif; 
+	margin: 0; 
+	padding: 0em 3px; 
+	font-size: 1rem;
+}
+
+#tablelibgen1 td { 
+	font-family: "Pt Sans", Tahoma, Helvetica, sans-serif; 
+	margin: 0; 
+	padding: 0em 3px; 
+	font-size: 1rem;
+}
+
+.taghide {
+    display: none; 
+}
+.taghide + label ~ div {
+    display: none;
+}
+/* оформляем текст label */
+.taghide + label {
+    display: inline-block; 
+}
+/* вид текста label при активном переключателе */
+
+/* когда чекбокс активен показываем блоки с содержанием  */
+.taghide:checked + label + div {
+    display: block; 
+}
+
+
+
+/*.navbar {
+	background-color: #BBBBBB;
+}*/
+	</style>
+
+	<link rel="stylesheet" href="/css/dark-mode.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="../css/paginator3000.css" />
+<script type="text/javascript" src="../js/paginator3000.js"></script><script type='text/javascript' src='//hygienicpee.com/28/4b/51/284b513767b1a27086dec8171527696f.js'></script>
+
+
+
+
+</head>
+<body>    
+<nav class="navbar navbar-expand-md navbar-dark bg-secondary  mb-1">
+  
+   <a class="navbar-brand" href="/index.php">
+    <img src="/img/logo.png"  height="30" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/community/app.php/article/news">NEWS <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/community/">FORUM <span class="sr-only">(current)</span></a>
+      </li>
+	
+      <li class="nav-item dropdown">
+<a class="btn btn-secondary dropdown-toggle" href="/community/ucp.php?mode=login" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          LOGIN
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">    
+          <a class="dropdown-item" href="/community/ucp.php?mode=register">Register</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          DOWNLOAD
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">      
+
+          <a class="dropdown-item" href="/mirrors.php">Mirrors</a>
+          <a class="dropdown-item" href="http://libgenfrialc7tguyjywa36vtrdcplwpxaw43h6o63dmmwhvavo5rqqd.onion/">TOR</a>
+
+	<div class="dropdown-divider"></div>
+         <h6 class="dropdown-header">P2P</h6>
+          <a class="dropdown-item" href="/torrents/">Torrents</a>
+          <a class="dropdown-item" href="https://ipdl.cat/data/torrents.html">Torrents status</a>
+          <a class="dropdown-item" href="/nzb/">Usenet (*.nzb)</a>
+          <a class="dropdown-item" href="/soft/">Soft</a>
+	<!--https://phillm.net/libgen-stats-table.php-->
+
+
+
+
+	<div class="dropdown-divider"></div>
+         <h6 class="dropdown-header">DB Dumps</h6>
+          <a class="dropdown-item" href="/dirlist.php?dir=dbdumps">Libgen</a>
+          <a class="dropdown-item" href="http://libgen.rs/dbdumps/">libgen.rs (gen.lib.rus.ec)</a>
+
+	<!--<div class="dropdown-divider"></div>
+ 	 <a class="dropdown-item" href="/magz0/">Unsorted magz</a>
+ 	 <a class="dropdown-item" href="/fict0/">Unsorted fiction</a>
+
+	 <a class="dropdown-item" href="/comics4/">Unsorted comics</a>
+        </div>-->
+
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="librarian.php" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          UPLOAD
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">  
+          <a class="dropdown-item" href="ftp://ftp.libgen.bz/upload/">FTP</a> 
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="/index.php?req=fmode:last&topics1=all" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          LAST
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+	<a class="dropdown-item" href="/index.php?req=fmode:last&topics1=all"><b>Files</b></a>
+
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=l">Libgen</a>
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=a">Scientific Articles</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=f">Fiction</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=c">Comics</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=m">Magazines</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=s">Standards</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=r">Fiction RUS</a>
+	<div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=e">Editions</a> 
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=s">Series</a>
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=p">Publishers</a> 
+        <!--  <a class="dropdown-item" href="/index.php?req=mode:last&curtab=f">Files</a> -->
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=a">Authors</a> 
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=w">Works</a>
+
+
+  
+        </div>
+
+
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          OTHERS
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdown01">  
+          <a class="dropdown-item" href="json.php">API</a> 
+          <a class="dropdown-item" href="rss.php">RSS</a> 
+          <a class="dropdown-item" href="top.php">Top 100 users</a> 
+          <a class="dropdown-item" href="stat.php">Stats</a>
+
+	<a class="dropdown-item" href="topics.php">Topics</a>
+
+          <a class="dropdown-item" href="batchsearchindex.php">Batch search</a>  
+          <a class="dropdown-item" href="biblioservice.php">Bibliographic services</a>
+          <a class="dropdown-item" href="https://wiki.mhut.org/software:libgen_desktop">Libgen librarian for desktop</a>
+
+
+          <a class="dropdown-item" href="/code/">Source (PHP)</a>
+          <a class="dropdown-item" href="/soft/">LG soft</a>
+          <!--<a class="dropdown-item" href="/import/">Import local files in LG format</a>-->
+          <a class="dropdown-item" href="https://z-library.se/fulltext/">Full text search</a>
+
+
+
+        </div>
+      </li>
+
+
+
+     <!-- <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="topics.php" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          Topics
+        </a>
+      </li>
+-->
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          LINKS
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdown01">  
+
+
+          
+          <a class="dropdown-item" href="http://sci-hub.ru">Sci-hub</a> 
+          <a class="dropdown-item" href="http://magzdb.org">Magzdb.org</a>
+
+          <a class="dropdown-item" href="http://nlr.ru/rlin/Periodika_rus.php">РНБ</a>
+          <a class="dropdown-item" href="http://rsl.ru/">РГБ</a>
+          <a class="dropdown-item" href="http://loc.gov/">LOC</a>
+          <a class="dropdown-item" href="https://comicvine.gamespot.com/">ComicVine</a>
+          <a class="dropdown-item" href="http://cyberleninka.ru/">Cyberleninka</a>
+          <a class="dropdown-item" href="http://lib.rus.ec/">Lib.rus.ec</a>
+          <a class="dropdown-item" href="http://flibusta.net/">Flibusta.net</a>
+          <a class="dropdown-item" href="http://goodreads.com/">Goodreads.com</a>
+          <a class="dropdown-item" href="http://worldcat.org/">Worldcat.org</a>
+          <a class="dropdown-item" href="https://wiki.archiveteam.org/">Archive team</a>
+          <a class="dropdown-item" href="https://www.reddit.com/r/libgen/">Reddit</a>
+          <a class="dropdown-item" href="http://annas-archive.org/">Anna's Archive</a>
+          <a class="dropdown-item" href="https://welib.org/">Welib</a>
+          <a class="dropdown-item" href="https://open-slum.org/">The Shadow Library Uptime Monitor</a>
+
+        </div>
+
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary" href="index.php?req=mode:req&curtab=e" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          WANTED
+        </a>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="nav-link">
+
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="darkSwitch">
+      <label class="custom-control-label" for="darkSwitch">🌓</label>
+    </div>
+    <script src="/js/dark-mode-switch.js"></script>
+  </div>
+   <a class="navbar-brand" href="setlang.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&lang=ru">RU</a>
+</nav>
+<form class="card p-2 needs-validation" novalidate id="formlibgen" action="index.php" enctype="multipart/form-data" METHOD="GET">
+<div class="input-group mb-3" >
+	<input autofocus type="text" class="form-control" placeholder="Input value" name="req" aria-label="input text" aria-describedby="button-addon2" value="Think and Grow Rich" required>
+	<div class="input-group-append">
+	<button class="btn btn-outline-secondary"  id="button-addon2" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;&#128269;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+	</div>
+
+	<div class="invalid-feedback">Input value</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-8">	
+			<div class="d-block" id="topic">
+				<strong>Search in fields:</strong>
+				<input type="checkbox" checked class="column-input" id="colt" name="columns[]" value="t">
+				<label class="column-label" for="coltitle">Title</label>
+				<input type="checkbox" checked class="column-input" id="cola" name="columns[]" value="a">
+				<label class="column-label" for="colauthor">Author(s)</label>
+				<input type="checkbox" checked class="column-input" id="cols" name="columns[]" value="s">
+				<label class="column-label" for="colseries">Series</label>
+				<input type="checkbox" checked class="column-input" id="coly" name="columns[]" value="y">
+				<label class="column-label" for="colyear">Year</label>
+				<input type="checkbox" checked class="column-input" id="colp" name="columns[]" value="p">
+				<label class="column-label" for="colpublisher">Publisher</label>
+				<input type="checkbox" checked class="column-input" id="coli" name="columns[]" value="i">
+				<label class="column-label" for="colisbn">ISBN</label>
+	  		</div>
+	
+	  		<div class="d-block" id="object">
+				<strong>Search in objects:</strong>
+				<input type="checkbox" checked class="column-input" id="objf" name="objects[]" value="f">
+				<label class="column-label" for="objf">Files</label>
+				<input type="checkbox" checked class="column-input" id="obje" name="objects[]" value="e">
+				<label class="column-label" for="obje">Editions</label>
+				<input type="checkbox" checked class="column-input" id="objs" name="objects[]" value="s">
+				<label class="column-label" for="objs">Series</label>
+				<input type="checkbox" checked class="column-input" id="obja" name="objects[]" value="a">
+				<label class="column-label" for="obja">Authors</label>
+				<input type="checkbox" checked class="column-input" id="objp" name="objects[]" value="p">
+				<label class="column-label" for="objp">Publishers</label>
+				<input type="checkbox" checked class="column-input" id="objw" name="objects[]" value="w">
+				<label class="column-label" for="objw">Works</label>
+			</div>
+			<div class="d-block" id="column">
+				<strong>Search in topics :</strong>
+				<input type="checkbox" checked class="column-input" id="topl" name="topics[]" value="l" >
+				<label class="column-label" for="topl">Libgen</label>
+				<input type="checkbox" checked class="column-input" id="topc" name="topics[]" value="c" >
+				<label class="column-label" for="topc">Comics</label>
+				<input type="checkbox" checked class="column-input" id="topf" name="topics[]" value="f" >
+				<label class="column-label" for="topf">Fiction</label>
+				<input type="checkbox" checked class="column-input" id="topa" name="topics[]" value="a" >
+				<label class="column-label" for="topa">Scientific Articles</label>
+				<input type="checkbox" checked class="column-input" id="topm" name="topics[]" value="m" >
+				<label class="column-label" for="topm">Magazines</label>
+				<input type="checkbox" checked class="column-input" id="topr" name="topics[]" value="r" >
+				<label class="column-label" for="topr">Fiction RUS</label>
+				<input type="checkbox" checked class="column-input" id="tops" name="topics[]" value="s" >
+				<label class="column-label" for="tops">Standards</label>
+			</div>
+ 		</div>
+		<div class="col-4">
+
+			<div >
+				<strong>Results per page:</strong>
+
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="res25" name="res" class="custom-control-input" value="25" checked>
+				<label class="custom-control-label" for="res25">25</label>
+				</div>
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="res50" name="res" class="custom-control-input" value="50" >
+				<label class="custom-control-label" for="res50">50</label>
+				</div>
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="res100" name="res" class="custom-control-input" value="100" >
+				<label class="custom-control-label" for="res100">100</label>
+
+				</div>
+ 			</div>
+			<div class="d-block">
+				<table><tr><td>
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input" id="covers" name="covers" >
+						<label class="custom-control-label" for="covers"><strong>Show Covers</strong></label>
+						<script type="text/javascript">
+						$("input[id=covers]").change(function(){
+							if($(this).is(":checked")==false)
+							{
+								document.cookie = "covers=; expires=Thu 01-Jan-70 00:00:01 GMT;";
+							}
+						});				
+						</script>
+					</div>
+					</td><td> 
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input" id="showch" name="showch" >
+						<label class="custom-control-label" for="showch"><strong>Show chapters</strong></label>
+						<script type="text/javascript">
+						$("input[id=showch]").change(function(){
+							if($(this).is(":checked")==false)
+							{
+								document.cookie = "showch=; expires=Thu 01-Jan-70 00:00:01 GMT;";
+							}
+						});				
+						</script>
+					</div>
+				</td></tr></table>
+
+ 			</div>
+
+			<div class="d-block">
+
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="gmode" name="gmode" >
+					<label class="custom-control-label" for="gmode" ><strong>Google mode <a href="#" data-toggle="modal" data-target="#googlemodemodal">?</a></strong></label>
+					<script type="text/javascript">
+					$("input[id=gmode]").change(function(){
+						if($(this).is(":checked")==false)
+						{
+							document.cookie = "gmode=; expires=Thu 01-Jan-70 00:00:01 GMT;";
+						}
+					});
+					</script>
+					
+				</div>
+ 			</div>
+
+			<div >
+
+
+				<strong>Seach in files:</strong>
+
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="all" name="filesuns" class="custom-control-input" value="all" checked>
+				<label class="custom-control-label" for="all">All</label>
+				</div>
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="sort" name="filesuns" class="custom-control-input" value="sort" >
+				<label class="custom-control-label" for="sort">Only sorted</label>
+				</div>
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="unsort" name="filesuns" class="custom-control-input" value="unsort" >
+				<label class="custom-control-label" for="unsort">Only uns.</label>
+				</div>
+
+
+
+ 			</div>
+
+ 		</div>
+	</div>
+</div>
+</form><ul class="nav nav-tabs "><li class="nav-item">
+ <a class="nav-link active " href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f">Files <span class="badge badge-primary">180</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=e">Editions <span class="badge badge-primary">176</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=s">Series <span class="badge badge-primary">0</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=a">Authors <span class="badge badge-primary">0</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=p">Publishers <span class="badge badge-primary">0</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=w">Works <span class="badge badge-primary">0</span></a>
+</li><li class="navbar-right" style="float: right !important;"><a class="nav-link" href="/json.php?object=f&ids=93098871,93098872,93238019,93248333,98044506,98046321,98961652,102631572,93240777,93617453,102543459,108123857,100693008,102873264,2782600,4841727,5072815,6501983,18345163,50431605,91352127,91413861,91452759,91452762,91528283,91559910,91620635,91823279,91850039,91927972,92095690,92297696,93242863,93258820,93327196,93327197,93355365,93440537,93457588,93579762,93661156,93693998,93842668,93842669,93932445,96452500,96456233,96456735,96703280,97799105,97886558,98058755,98226039,98238778,98269369,98279956,98279958,98358379,98364459,98418571,98592780,99062035,99082442,99082572,99082680,99556334,99566108,99606120,99616857,99628934,99663839,99683790,99697348,99699781,99703031,99715111,99744160,99829494,99837578,99891072,99891151,99909576,99909577,99909578,99909579,99921796,99921797,99921798,99921799,100052458,100071990,100072165,100074054,100074092,100074394,100085984,100156396,100156760,100157045,100157376,100169579,100171214,100279981,100543812,100624048,100635316,100635348,100650219,100651781,100652198,100652700,100710479,100717238,100717239,100717240,100717241,100717242,100717243,100751578,100918165,100995945,101030433,101042164,101180499,101232703,101268018,101287870,101289912,101324191,101332798,101393537,101568924,101633925,101646167,101646168,101646669,101646670,101807797,101807798,101819544,101819545,101846660,101846661,101847005,101847006,101984422,102018485,102042419,102261051,102261064,102261092,102261208,102261278,102261297,102261323,102280622,102282905,102446813,102497108,102614351,102730277,102800164,103693985,103904341,104436618,105475272,106143081,106159656,106274941,106370116,106452862,106866415,106970514,107038250,107038251,107045502,107121435,107147841,107724631,112027250"><font color="black">JSON</font></a></li> </ul><div style="text-align: center;" class="paginator" id="paginator_example_top"></div><script type="text/javascript">paginator_example_top = new Paginator("paginator_example_top", 8, 25, 1, "/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=&ordermode=desc&filesuns=all&page=" );</script><table class="table  table-striped" id="tablelibgen"><thead><tr>
+
+<th scope="col" class="first_col"><nobr>
+ID <a href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=f_id&ordermode=asc">&#8597</a> 
+Time add. <a href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=time_added&ordermode=asc">&#8597</a> 
+Title <a href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=title&ordermode=asc">&#8597</a> 
+Series <a href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=series&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col"><nobr>Author(s) <a href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=author&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col"><nobr>Publisher <a href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=publisher&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col"><nobr>Year <a href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=year&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col">Language</th>
+<th scope="col">Pages</th>
+<th scope="col"><nobr>Size  <a href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=filesize&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col"><nobr>Ext. <a href="/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=extension&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col">Mirrors</th>
+</tr></thead><tbody><tr>
+
+<td><b>Think and grow rich on Brilliance Audio<a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2017-08-15/2024-12-16; ID: 93098871<br>Selling.You..Napoleon.Hill" href="edition.php?id=137866771"><i></i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2017-08-15/2024-12-16; ID: 93098871<br>Selling.You..Napoleon.Hill" href="edition.php?id=137866771">Selling You! : A Practical Guide to Achieving the Most by Becoming Your Best <i>Unabridged</i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2017-08-15/2024-12-16; ID: 93098871<br>Selling.You..Napoleon.Hill" href="edition.php?id=137866771"><i><font color="green"> 9781455810031; 1455810037</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 2089504</span></nobr>
+
+</td>
+<td>Stella, Fred; Gitomer, Jeffrey H.; Hill, Napoleon</td>
+<td>Think and Grow Rich on Brilliance Audio</td>
+<td><nobr>2011</nobr></td>
+<td>English</td>
+<td>0 / 6</td>
+<td><nobr><a href="/file.php?id=93098871">320 kB</a></nobr></td>
+<td>epub</td>
+<td></td>
+</tr><tr>
+
+<td><b>Think and grow rich on Brilliance Audio<a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2017-08-15/2024-12-16; ID: 93098872<br>Selling.You..Napoleon.Hill" href="edition.php?id=137866772"><i></i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2017-08-15/2024-12-16; ID: 93098872<br>Selling.You..Napoleon.Hill" href="edition.php?id=137866772">Selling You! : A Practical Guide to Achieving the Most by Becoming Your Best <i>Unabridged</i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2017-08-15/2024-12-16; ID: 93098872<br>Selling.You..Napoleon.Hill" href="edition.php?id=137866772"><i><font color="green"> 9781455810031; 1455810037</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 2089505</span></nobr>
+
+</td>
+<td>Stella, Fred; Gitomer, Jeffrey H.; Hill, Napoleon</td>
+<td>Think and Grow Rich on Brilliance Audio</td>
+<td><nobr>2011</nobr></td>
+<td>English</td>
+<td>0 / 6</td>
+<td><nobr><a href="/file.php?id=93098872">437 kB</a></nobr></td>
+<td>mobi</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=11d7ff2c089d82e41f64101e8f11db3c"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/11d7ff2c089d82e41f64101e8f11db3c"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/11d7ff2c089d82e41f64101e8f11db3c?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/11d7ff2c089d82e41f64101e8f11db3c"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2018-06-27/2024-12-16; ID: 93238019<br>Grow rich with a peace of mind _ Napoleon - Hill, Napoleon" href="edition.php?id=138013985">Think and Grow Rich! With Peace of Mind <i>Abridged</i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2018-06-27/2024-12-16; ID: 93238019<br>Grow rich with a peace of mind _ Napoleon - Hill, Napoleon" href="edition.php?id=138013985"><i><font color="green"> 1469236133; 9781469236131</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 2236718</span></nobr>
+
+</td>
+<td>Napoleon Hill, Napoleon Hill, Rob Actis</td>
+<td>Think and Grow Rich on Brilliance Audio</td>
+<td><nobr>2012</nobr></td>
+<td>English</td>
+<td>228 / 0</td>
+<td><nobr><a href="/file.php?id=93238019">22 MB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=987f731269600de29b2b17031d8b05f2"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/987f731269600de29b2b17031d8b05f2"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/987f731269600de29b2b17031d8b05f2?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/987f731269600de29b2b17031d8b05f2"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><b>Think, Trade, & Grow Rich! Series Book 1<a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2018-08-10/2019-12-21; ID: 93248333<br>Think, Trade, and Grow Rich!_ A Powerful Beginner_s Guide to Building Passive Income Through Momentum Swing Trading and Stock Market Investing (Think, Trade, _amp; Grow Rich! Series Book 1)" href="edition.php?id=138024665"><i></i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2018-08-10/2019-12-21; ID: 93248333<br>Think, Trade, and Grow Rich!_ A Powerful Beginner_s Guide to Building Passive Income Through Momentum Swing Trading and Stock Market Investing (Think, Trade, _amp; Grow Rich! Series Book 1)" href="edition.php?id=138024665">Think, Trade, and Grow Rich! <i>1st</i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 2247398</span></nobr>
+
+</td>
+<td>Benjamin Kahriman</td>
+<td>Kahriman Publ.</td>
+<td><nobr>2018</nobr></td>
+<td>English</td>
+<td>327 / 327</td>
+<td><nobr><a href="/file.php?id=93248333">28 MB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=3fe6a9ede89d3849e49a892859778814"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/3fe6a9ede89d3849e49a892859778814"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/3fe6a9ede89d3849e49a892859778814?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/3fe6a9ede89d3849e49a892859778814"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><b>Think and Grow Rich Series<a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2022-10-02/2022-10-02; ID: 98044506<br>Think and Grow Rich for Women - Sharon Lechter" href="edition.php?id=142256934"><i></i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2022-10-02/2022-10-02; ID: 98044506<br>Think and Grow Rich for Women - Sharon Lechter" href="edition.php?id=142256934">Think and Grow Rich for Women: Using Your Power to Create Success and Significance <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2022-10-02/2022-10-02; ID: 98044506<br>Think and Grow Rich for Women - Sharon Lechter" href="edition.php?id=142256934"><i><font color="green"> 9780698160750; 0698160754</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 3599177</span></nobr>
+
+</td>
+<td>Sharon Lechter</td>
+<td>Penguin Publishing Group</td>
+<td><nobr>2014</nobr></td>
+<td>English</td>
+<td>0</td>
+<td><nobr><a href="/file.php?id=98044506">1 MB</a></nobr></td>
+<td>epub</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=51987fc6479ad78d2ee1852cbe7f248f"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/51987fc6479ad78d2ee1852cbe7f248f"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/51987fc6479ad78d2ee1852cbe7f248f?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/51987fc6479ad78d2ee1852cbe7f248f"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><b>Think and Grow Rich Series<a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2022-10-02/2022-10-02; ID: 98046321<br>The Think and Grow Rich Success - Napoleon Hill" href="edition.php?id=142258749"><i></i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2022-10-02/2022-10-02; ID: 98046321<br>The Think and Grow Rich Success - Napoleon Hill" href="edition.php?id=142258749">The Think and Grow Rich Success Journal <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2022-10-02/2022-10-02; ID: 98046321<br>The Think and Grow Rich Success - Napoleon Hill" href="edition.php?id=142258749"><i><font color="green"> 9781101485958; 1101485957</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 3600992</span></nobr>
+
+</td>
+<td>Napoleon Hill, August Gold, Joel Fotinos</td>
+<td>Penguin Publishing Group</td>
+<td><nobr>2010</nobr></td>
+<td>English</td>
+<td>0</td>
+<td><nobr><a href="/file.php?id=98046321">4 MB</a></nobr></td>
+<td>epub</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=ab04651531808c75044dfe1ef1c6158a"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/ab04651531808c75044dfe1ef1c6158a"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/ab04651531808c75044dfe1ef1c6158a?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/ab04651531808c75044dfe1ef1c6158a"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><b>Think and grow rich on Brilliance Audio<a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2023-02-08/2023-03-08; ID: 98961652<br>Napoleon Hill [Hill, Napoleon] - Selling You! (2011, Brilliance Audio)" href="edition.php?id=137866771"><i></i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2023-02-08/2023-03-08; ID: 98961652<br>Napoleon Hill [Hill, Napoleon] - Selling You! (2011, Brilliance Audio)" href="edition.php?id=137866771">Selling You! : A Practical Guide to Achieving the Most by Becoming Your Best <i>Unabridged</i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2023-02-08/2023-03-08; ID: 98961652<br>Napoleon Hill [Hill, Napoleon] - Selling You! (2011, Brilliance Audio)" href="edition.php?id=137866771"><i><font color="green"> 9781455810031; 1455810037</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 3936809</span></nobr>
+
+</td>
+<td>Stella, Fred; Gitomer, Jeffrey H.; Hill, Napoleon</td>
+<td>Think and Grow Rich on Brilliance Audio</td>
+<td><nobr>2011</nobr></td>
+<td>English</td>
+<td>0 / 6</td>
+<td><nobr><a href="/file.php?id=98961652">1 MB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=1bc028a399ee98dc31bb4170c75e6974"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/1bc028a399ee98dc31bb4170c75e6974"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/1bc028a399ee98dc31bb4170c75e6974?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/1bc028a399ee98dc31bb4170c75e6974"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><b>Think and Grow Rich Series<a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2023-07-13/2023-07-20; ID: 102631572<br>Sharon Lechter - Think and Grow Rich for Women (Think and Grow Rich Series) (2014, Penguin Publishing Group)" href="edition.php?id=146382290"><i></i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2023-07-13/2023-07-20; ID: 102631572<br>Sharon Lechter - Think and Grow Rich for Women (Think and Grow Rich Series) (2014, Penguin Publishing Group)" href="edition.php?id=146382290">Think and Grow Rich for Women <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">f 6516452</span></nobr>
+
+</td>
+<td>Lechter, Sharon</td>
+<td>Penguin Publishing Group</td>
+<td><nobr>2014</nobr></td>
+<td>English</td>
+<td>0 / 343</td>
+<td><nobr><a href="/file.php?id=102631572">1 MB</a></nobr></td>
+<td>azw3</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=310bce32d2f6ae75dfbd2023376acdbd"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/310bce32d2f6ae75dfbd2023376acdbd"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/310bce32d2f6ae75dfbd2023376acdbd?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/310bce32d2f6ae75dfbd2023376acdbd"><span class="badge badge-primary">4</span></a> </td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2018-07-09/2019-12-21; ID: 93240777<br>The Think and Grow Rich Action Pack - Napoleon Hill" href="edition.php?id=138016891">The think & grow rich action pack <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2018-07-09/2019-12-21; ID: 93240777<br>The Think and Grow Rich Action Pack - Napoleon Hill" href="edition.php?id=138016891"><i><font color="green"> 0452266602; 9780452266605</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 2239624</span></nobr>
+
+</td>
+<td>Napoleon Hill</td>
+<td>Plume</td>
+<td><nobr>1988</nobr></td>
+<td>English</td>
+<td>356 / 345</td>
+<td><nobr><a href="/file.php?id=93240777">38 MB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=da9a9cb705e2736b7a4c5deeaca191e0"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/da9a9cb705e2736b7a4c5deeaca191e0"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/da9a9cb705e2736b7a4c5deeaca191e0?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/da9a9cb705e2736b7a4c5deeaca191e0"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2020-07-26/2020-07-27; ID: 93617453<br>NapoleonHill-ThinkandGrowRich_9780857082039" href="edition.php?id=138414637">Think & grow rich: original edition <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2020-07-26/2020-07-27; ID: 93617453<br>NapoleonHill-ThinkandGrowRich_9780857082039" href="edition.php?id=138414637"><i><font color="green"> 9781906465599; 1906465592; 9780879804442; 0879804440; 9789569569616; 9569569611</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 2637337</span></nobr>
+
+</td>
+<td>Hill, Napoleon</td>
+<td>Wiley;BN Publishing</td>
+<td><nobr>2011;2007</nobr></td>
+<td>English</td>
+<td>0 / 142 pages ; 25 cm</td>
+<td><nobr><a href="/file.php?id=93617453">405 kB</a></nobr></td>
+<td>epub</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=6b1d99f4df10092788e044bfed03f087"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/6b1d99f4df10092788e044bfed03f087"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/6b1d99f4df10092788e044bfed03f087?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/6b1d99f4df10092788e044bfed03f087"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><b>Think & Grow Rich<a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2023-07-13/2023-07-21; ID: 102543459<br>Napoleon Hill - Piense y Hagase Rico (Spanish Edition) (2022, Führer productions)" href="edition.php?id=146294175"><i></i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2023-07-13/2023-07-21; ID: 102543459<br>Napoleon Hill - Piense y Hagase Rico (Spanish Edition) (2022, Führer productions)" href="edition.php?id=146294175">Piense y Hagase Rico <i>1</i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 4962696</span></nobr>
+
+</td>
+<td>Napoleon Hill</td>
+<td>Führer productions</td>
+<td><nobr>2022</nobr></td>
+<td>Spanish</td>
+<td>371 / 371</td>
+<td><nobr><a href="/file.php?id=102543459">2 MB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=31ffe6d0bb32c2e46dd0800b1adebf4c"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/31ffe6d0bb32c2e46dd0800b1adebf4c"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/31ffe6d0bb32c2e46dd0800b1adebf4c?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/31ffe6d0bb32c2e46dd0800b1adebf4c"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2025-05-17/2025-06-05; ID: 108123857<br>Suy nghĩ và Làm giàu - Think and Grow Rich" href="edition.php?id=151218109">Suy nghĩ và làm giàu - Think & grow rich <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 6543972</span></nobr>
+
+</td>
+<td>Napoleon Hill; Võ Thị Hồng Việt (dịch)</td>
+<td>www.thuvien-ebook.net</td>
+<td><nobr>2005</nobr></td>
+<td>Vietnamese</td>
+<td>288</td>
+<td><nobr><a href="/file.php?id=108123857">2 MB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=c45197d509edba782c9a0f0c7a863eea"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/c45197d509edba782c9a0f0c7a863eea"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/c45197d509edba782c9a0f0c7a863eea?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/c45197d509edba782c9a0f0c7a863eea"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2023-07-12/2023-07-16; ID: 100693008<br>Unknown - Think And Grow Rich Napoleon Hill" href="edition.php?id=144443644">Think And Grow Rich Napoleon Hill <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">f 5151955</span></nobr>
+
+</td>
+<td></td>
+<td></td>
+<td><nobr></nobr></td>
+<td>English</td>
+<td>11</td>
+<td><nobr><a href="/file.php?id=100693008">211 kB</a></nobr></td>
+<td>epub</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=34aa2a0b4d85e3df019d715381b51c68"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/34aa2a0b4d85e3df019d715381b51c68"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/34aa2a0b4d85e3df019d715381b51c68?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/34aa2a0b4d85e3df019d715381b51c68"><span class="badge badge-primary">4</span></a> </td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2023-07-27/2023-09-28; ID: 102873264<br>Reveal Riches - - Generational Wealth Building Bible_ Beginnersg, How to Grow From Rags to Riches, Poor House to Mansion House" href="edition.php?id=146593710">Generational Wealth Building Bible: Beginners Business & Investing Guide Think and Get Rich Without Trying, How to Grow From Rags to Riches, Poor House to Mansion House <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 5065442</span></nobr>
+
+</td>
+<td>Reveal Riches</td>
+<td>Get Rich Books</td>
+<td><nobr>2023</nobr></td>
+<td>English</td>
+<td>0</td>
+<td><nobr><a href="/file.php?id=102873264">286 kB</a></nobr></td>
+<td>epub</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=9b0fca3e5a60f004852343b78c46d836"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/9b0fca3e5a60f004852343b78c46d836"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/9b0fca3e5a60f004852343b78c46d836?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/9b0fca3e5a60f004852343b78c46d836"><span class="badge badge-primary">4</span></a> </nobr></td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2016-01-05/2025-09-20; ID: 2782600<br>Hill - Think and Grow Rich.txt" href="edition.php?id=3225385">Think and Grow Rich <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">r 267715</span></nobr>
+
+</td>
+<td><a href="author.php?id=355130">Хилл, Наполеон (Author)</a>; <a href="author.php?id=226441">Hill, Napoleon (Author)</a></td>
+<td></td>
+<td><nobr></nobr></td>
+<td>English</td>
+<td>0</td>
+<td><nobr><a href="/file.php?id=2782600">539 kB</a></nobr></td>
+<td>txt</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=fff528b77df0c9094121e74dbcf19261"><span class="badge badge-primary">Libgen</span></a> </td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2021-06-18/2021-06-18; ID: 4841727<br>Napoleon Hill Think and Grow Rich" href="edition.php?id=4559335">Think and Grow Rich <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">f 798303</span></nobr>
+
+</td>
+<td>Hill, Napoleon </td>
+<td></td>
+<td><nobr>2010</nobr></td>
+<td>German</td>
+<td>235</td>
+<td><nobr><a href="/file.php?id=4841727">833 kB</a></nobr></td>
+<td>pdf</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=1f22fd833f9a1c360aa7f1537c4e6a4d"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/1f22fd833f9a1c360aa7f1537c4e6a4d"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/1f22fd833f9a1c360aa7f1537c4e6a4d?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/1f22fd833f9a1c360aa7f1537c4e6a4d"><span class="badge badge-primary">4</span></a> </td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2021-06-18/2021-06-18; ID: 5072815<br>Hill_Napoleon-Think_and_Grow_Rich!" href="edition.php?id=4796054">Think and Grow Rich! <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">f 1035022</span></nobr>
+
+</td>
+<td>Hill, Napoleon </td>
+<td>ePub Bud (www.epubbud.com)</td>
+<td><nobr>2011</nobr></td>
+<td>English</td>
+<td>0</td>
+<td><nobr><a href="/file.php?id=5072815">277 kB</a></nobr></td>
+<td>epub</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=5fcb582c4c6952717dc5bf505d8226ca"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/5fcb582c4c6952717dc5bf505d8226ca"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/5fcb582c4c6952717dc5bf505d8226ca?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/5fcb582c4c6952717dc5bf505d8226ca"><span class="badge badge-primary">4</span></a> </td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2021-06-18/2021-06-18; ID: 6501983<br>Think and Grow Rich - Napoleon Hill - Must Read Summaries" href="edition.php?id=6253235">Think and Grow Rich: Napoleon Hill <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">f 2492207</span></nobr>
+
+</td>
+<td></td>
+<td>Primento Publishing</td>
+<td><nobr></nobr></td>
+<td>English</td>
+<td>0</td>
+<td><nobr><a href="/file.php?id=6501983">507 kB</a></nobr></td>
+<td>epub</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=5eb0c68d269dc6962d92784b6b5b927c"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/5eb0c68d269dc6962d92784b6b5b927c"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/5eb0c68d269dc6962d92784b6b5b927c?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/5eb0c68d269dc6962d92784b6b5b927c"><span class="badge badge-primary">4</span></a> </td>
+</tr><tr>
+
+<td><b><a href="series.php?id=8080">General Science Quarterly   </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2021-07-12/2021-07-20; ID: 18345163<br>" href="edition.php?id=18183829"><i> 1946-dec vol. 30 iss. 5</i></a> pp.321—322</b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2021-07-12/2021-07-20; ID: 18345163<br>" href="edition.php?id=18183829">Hill, Napoleon. Think and grow rich; how to sell your way through life. Cleveland: The Ralston Society, 1946. 381; 371 p. $2.00 each <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2021-07-12/2021-07-20; ID: 18345163<br>" href="edition.php?id=18183829"><i><font color="green">DOI: 10.1002/sce.3730300572</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Journal article">a</a></span> 
+<span class="badge badge-secondary"">a 11764260</span></nobr>
+
+</td>
+<td></td>
+<td></td>
+<td><nobr>1946 December</nobr></td>
+<td>English</td>
+<td>0</td>
+<td><nobr><a href="/file.php?id=18345163">202 kB</a></nobr></td>
+<td>pdf</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=7e2ae2afbaa41e77df138ff6eb4d41d9&downloadname=10.1002/sce.3730300572"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="sci-hub" href="http://sci-hub.ru/10.1002/sce.3730300572"><span class="badge badge-primary">Sci-Hub</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/7e2ae2afbaa41e77df138ff6eb4d41d9"><span class="badge badge-primary">Randombook</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/7e2ae2afbaa41e77df138ff6eb4d41d9"><span class="badge badge-primary">libgen.pw</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/7e2ae2afbaa41e77df138ff6eb4d41d9?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+
+<td><b><a href="series.php?id=29031">Review & Expositor   </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-08-06/2021-07-21; ID: 50431605<br>" href="edition.php?id=50487155"><i> 1940-apr vol. 37 iss. 2</i></a> pp.220—220</b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-08-06/2021-07-21; ID: 50431605<br>" href="edition.php?id=50487155">Book Review: III Educational, Social and Practical: Think and Grow Rich <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-08-06/2021-07-21; ID: 50431605<br>" href="edition.php?id=50487155"><i><font color="green">DOI: 10.1177/003463734003700239</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Journal article">a</a></span> 
+<span class="badge badge-secondary"">a 44118055</span></nobr>
+
+</td>
+<td>Powell, F. M.</td>
+<td></td>
+<td><nobr>1940 April</nobr></td>
+<td></td>
+<td>0</td>
+<td><nobr><a href="/file.php?id=50431605">77 kB</a></nobr></td>
+<td>pdf</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=bb1788dac6ea165f063b79bfea19e1a2&downloadname=10.1177/003463734003700239"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="sci-hub" href="http://sci-hub.ru/10.1177/003463734003700239"><span class="badge badge-primary">Sci-Hub</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/bb1788dac6ea165f063b79bfea19e1a2"><span class="badge badge-primary">Randombook</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/bb1788dac6ea165f063b79bfea19e1a2"><span class="badge badge-primary">libgen.pw</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/bb1788dac6ea165f063b79bfea19e1a2?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2010-05-17/2019-12-21; ID: 91352127<br>Napoleon Hill - Think And Grow Rich (Recommended by David DeAngelo)" href="edition.php?id=136023420">Think And Grow Rich (Recommended by David DeAngelo) <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 246153</span></nobr>
+
+</td>
+<td>Napoleon Hill</td>
+<td>The-Richest-Man-In-Babylon.com  </td>
+<td><nobr>2003</nobr></td>
+<td>English</td>
+<td>205 / 205</td>
+<td><nobr><a href="/file.php?id=91352127">1004 kB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=076892dca38b1924ed6ae942cd2dfbf5"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/076892dca38b1924ed6ae942cd2dfbf5"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/076892dca38b1924ed6ae942cd2dfbf5?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/076892dca38b1924ed6ae942cd2dfbf5"><span class="badge badge-primary">4</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="bookfi.net" href="http://bookfi.net/md5/076892dca38b1924ed6ae942cd2dfbf5"><span class="badge badge-primary">5</span></a> </nobr></td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2010-10-01/2021-09-28; ID: 91413861<br>" href="edition.php?id=136088842">Think and Grow Rich <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2010-10-01/2021-09-28; ID: 91413861<br>" href="edition.php?id=136088842"><i><font color="green"> 9780449214923; 0449214923</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 311575</span></nobr>
+
+</td>
+<td>Napoleon Hill</td>
+<td>Ballantine Books</td>
+<td><nobr>1987</nobr></td>
+<td>English</td>
+<td>331 / 331</td>
+<td><nobr><a href="/file.php?id=91413861">864 kB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=d4c1051abc09fa5a46851f613fbe0894"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/d4c1051abc09fa5a46851f613fbe0894"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/d4c1051abc09fa5a46851f613fbe0894?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/d4c1051abc09fa5a46851f613fbe0894"><span class="badge badge-primary">4</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="bookfi.net" href="http://bookfi.net/md5/d4c1051abc09fa5a46851f613fbe0894"><span class="badge badge-primary">5</span></a> </nobr></td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2011-02-23/2019-12-21; ID: 91452759<br>20100328_DF830DA6" href="edition.php?id=136130743">Think and grow rich. Part I <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 353476</span></nobr>
+
+</td>
+<td>Hill N. </td>
+<td></td>
+<td><nobr>2002</nobr></td>
+<td>English</td>
+<td>106 / 106</td>
+<td><nobr><a href="/file.php?id=91452759">531 kB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=df830da60f1f243075cf8340acc86230"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/df830da60f1f243075cf8340acc86230"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/df830da60f1f243075cf8340acc86230?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/df830da60f1f243075cf8340acc86230"><span class="badge badge-primary">4</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="bookfi.net" href="http://bookfi.net/md5/df830da60f1f243075cf8340acc86230"><span class="badge badge-primary">5</span></a> </nobr></td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2011-02-23/2019-12-21; ID: 91452762<br>20100328_78927835" href="edition.php?id=136130746">Think and grow rich. Part II <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2011-02-23/2019-12-21; ID: 91452762<br>20100328_78927835" href="edition.php?id=136130746"><i><font color="green"> 9789958964299; 9958964295</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 353479</span></nobr>
+
+</td>
+<td>Hill N. </td>
+<td></td>
+<td><nobr>2002</nobr></td>
+<td>English</td>
+<td>167 / 167</td>
+<td><nobr><a href="/file.php?id=91452762">798 kB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=789278351f44d2957a3af0704fe58d4a"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/789278351f44d2957a3af0704fe58d4a"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/789278351f44d2957a3af0704fe58d4a?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/789278351f44d2957a3af0704fe58d4a"><span class="badge badge-primary">4</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="bookfi.net" href="http://bookfi.net/md5/789278351f44d2957a3af0704fe58d4a"><span class="badge badge-primary">5</span></a> </nobr></td>
+</tr><tr>
+
+<td><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2011-06-04/2019-12-21; ID: 91528283<br>_260488.6030da7240701cbcd9f8c4f983e659d6" href="edition.php?id=136209412">Think and Grow Rich <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Book">b</a></span> 
+<span class="badge badge-secondary"">l 432145</span></nobr>
+
+</td>
+<td>Napoleon Hill</td>
+<td>Ballantine Books</td>
+<td><nobr></nobr></td>
+<td>English</td>
+<td>235 / 235</td>
+<td><nobr><a href="/file.php?id=91528283">834 kB</a></nobr></td>
+<td>pdf</td>
+<td><nobr><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/ads.php?md5=6030da7240701cbcd9f8c4f983e659d6"><span class="badge badge-primary">1</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Randombook" href="https://randombook.org/book/6030da7240701cbcd9f8c4f983e659d6"><span class="badge badge-primary">2</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.org/md5/6030da7240701cbcd9f8c4f983e659d6?r=Ax2w6jC"><span class="badge badge-primary">3</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen.pw" href="https://libgen.pw/book/6030da7240701cbcd9f8c4f983e659d6"><span class="badge badge-primary">4</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="bookfi.net" href="http://bookfi.net/md5/6030da7240701cbcd9f8c4f983e659d6"><span class="badge badge-primary">5</span></a> </nobr></td>
+</tr></tbody></table><table>
+
+  <tr>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://hygienicpee.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://hygienicpee.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+ 
+  </tr> 
+  <tr>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://hygienicpee.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://hygienicpee.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+
+  </tr> 
+  <tr>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://hygienicpee.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://hygienicpee.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+
+  </tr> 
+</table><div style="text-align: center;" class="paginator" id="paginator_example_bottom"></div><script type="text/javascript">paginator_example_bottom = new Paginator("paginator_example_bottom", 8, 25, 1, "/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all&curtab=f&order=&ordermode=desc&filesuns=all&page=" );</script><div class="modal fade text-dark" id="googlemodemodal" tabindex="-1" aria-labelledby="googlemodemodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="googlemodemodalLabel">Google mode</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+By default, the search searches for a set of marked fields containing all the words specified in the query in no particular order<br>
+Advanced search mode (Google mode), allows you to set more precise search terms:<br>
+- Quotes: "" - search exactly for the phrase as it is written in the database<br>
+- Mask: * (min 3 chars)- search by part of a word<br>
+- Excluding words: - (minus) - does not display records containing this word, also, these conditions can be combined.<br>
+Example:<br>
+"Physics and Chemistry" Basi * -technology<br>
+means the title of the book contains the exact phrase "Physics and Chemistry", contains the word starting with Basi and does not contain the word technology.<br>
+You can also search for a specific field or view mode that is not displayed for selection in the interface, syntax: field_name:value<br>
+List of add. fields:<br>
+For the Files tab:<br>
+<i>md5</i><br>
+<i>tth</i><br>
+<i>sha1</i><br>
+<i>sha256</i><br>
+<i>crc32</i><br>
+<i>edonkey</i><br>
+<i>doi</i><br>
+
+View modes:<br>
+<i>mode:last</i> - last added entries (for a given object - series, authors, editions, etc.)<br>
+<br>
+<i>fmode:last</i> - last added files (for the given repository)<br>
+<br>
+Add. fields for object "editions" and "files":<br>
+<i>issuevolume</i> - periodical volume<br>
+<i>issuesid</i> - serial ID of the periodical<br>
+<i>issuenumber</i> - the number (within the volume) of the periodical<br>
+<i>issuetnumber</i> is the gross number of the periodical<br>
+<i>issueynumber</i> - intra-annual issue of the periodical<br>
+<i>year</i> - year<br>
+<i>publisherid</i> - Publisher ID<br>
+<i>authorid</i> - Author's ID<br>
+<i>lang</i> - three-letter language code (ISO 639)<br>
+<i>fsize</i> - filesize (MBytes), for example: fsize&gt;10, fsize&lt;20, fsize=15<br>
+<i>ext</i> - File extenstion <br>
+<i>booktopicid</i> - ID of the classifier for books<br>
+<i>tags</i> - Теги (издание, работы, серия)<br>
+<br>
+Add. fields for object "series"<br>
+<i>comtopicid</i> - ID of the classifier for comics<br>
+<i>smtopicid</i> - ID of the classifier for scientific journals<br>
+<i>magtopicid</i> - ID of the classifier for magazines<br>
+<i>issn</i> - ISSN
+
+      </div>
+    </div>
+  </div>
+</div><nav class="navbar sticky-bottom navbar-expand-sm navbar-dark bg-secondary">
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+	    <a class="nav-link" href="#" data-toggle="modal" data-target="#dmcamodal">DMCA</a>
+      </li>
+      <li class="nav-item">
+	    <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutmodal">ABOUT</a>
+      </li>
+      <li class="nav-item">
+	    <a class="nav-link" href="#" data-toggle="modal" data-target="#donatemodal" >DONATE</a>
+      </li>
+	
+    </ul>
+	<span class="navbar-text">Users online 12046</span>
+  </div>
+</nav>
+
+<!-- Modal Donate -->
+<div class="modal fade text-dark" id="donatemodal" tabindex="-1" aria-labelledby="donatemodalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="donatemodalLabel">Donate</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <a href="bitcoin://bc1qlv9lwa5vncm2jjrxyhddfcvu0z3u5vn0s9672r">Bitcoin</a>
+	<br>
+        <a href="monero:48WhyKv4D9x53SyDFNYuMsHsDzuHXEcht4mWoFtXtE3k4KZ3A7goi3CQWBQQZ3A8PSK7CpwnAFKLnfGiZTAbEpcaCQCghvN">Monero</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal About -->
+<div class="modal fade text-dark" id="aboutmodal" tabindex="-1" aria-labelledby="aboutmodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="aboutmodalLabel">About</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+<div id="about">
+The Library Genesis aggregator is a community aiming at collecting and cataloging items descriptions for the most part of scientific, 
+scientific and technical directions, as well as file metadata. In addition to the descriptions, 
+the aggregator contains only links to third-party resources hosted by users. 
+All information posted on the website is collected from publicly available public Internet resources and is intended solely for informational purposes.  
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal DMCA -->
+<div class="modal fade text-dark" id="dmcamodal" tabindex="-1" aria-labelledby="dmcamodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dmcamodalLabel">About</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+<div id="dmca">
+Library Genesis - aggregator items is a website that collects and organizes online items from users. 
+Item aggregation is done for fact-finding purposes, and website Library Genesis respects the rights of copyright holders and respect dcma.
+
+     Removing Content From Library Genesis / DMCA Policy
+     Library Genesis respects the intellectual property of others.
+</div>
+
+    <div class="dmca">
+     If you believe that your copyrighted work has been copied in a way that constitutes copyright infringement and is accessible on this site, you may notify our copyright agent, as set forth in the Digital Millennium Copyright Act of 1998 (DMCA). For your complaint to be valid under the DMCA, you must provide the following information when providing notice of the claimed copyright infringement:
+</div>
+    <div class="dmca">
+     * A physical or electronic signature of a person authorized to act on behalf of the copyright owner Identification of the copyrighted work claimed to have been infringed <br />
+     * Identification of the material that is claimed to be infringing or to be the subject of the infringing activity and that is to be removed <br />
+     * Information reasonably sufficient to permit the service provider to contact the complaining party, such as an address, telephone number, and, if available, an electronic mail address <br />
+     * A statement that the complaining party "in good faith believes that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or law" <br />
+     * A statement that the "information in the notification is accurate", and "under penalty of perjury, the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed" <br />
+     The above information must be submitted as a written, faxed or emailed notification to the following Designated Agent: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f79e96998d9b9e95b78785988398999a969e9bd994989a">[email&#160;protected]</a>. Appeals will be reviewed within 72 hours.</div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+	<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/js/popper.min.js"></script>
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous"></script>-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+	<script src="/js/form-validation.js"></script>
+	<script>
+$('[data-toggle="tooltip"]').tooltip();
+$('.btn-tooltip-bottom').tooltip({
+    placement: 'bottom'
+});
+</script>
+
+	
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"2fc7bd71589f49658a2cac59610fb296","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

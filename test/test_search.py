@@ -1,4 +1,4 @@
-import logging
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
 
@@ -6,7 +6,13 @@ import pytest
 import requests
 
 from libgen_bulk.book import Book
-from libgen_bulk.search import LibgenSearch, SearchField, SearchObject, SearchTopic
+from libgen_bulk.search import (
+    LibgenDatabaseConnectionError,
+    LibgenSearch,
+    SearchField,
+    SearchObject,
+    SearchTopic,
+)
 
 
 def _make_search():
@@ -17,6 +23,15 @@ def _make_search():
         search_objects=[SearchObject.FILES],
         search_topics=[SearchTopic.LIBGEN],
     )
+
+
+def _load_fixture(name: str) -> str:
+    fixtures_dir = Path(__file__).resolve().parent / "fixtures"
+    return (fixtures_dir / name).read_text(encoding="utf-8")
+
+
+def _index_by_id(books):
+    return {book.id: book for book in books if book.id}
 
 
 def test_book_repr():
@@ -61,7 +76,7 @@ def test_libgen_search_validates_mirror():
 
 
 def test_libgen_search_validates_enums():
-    with pytest.raises(TypeError, match="search_field must be a SearchField"):
+    with pytest.raises(TypeError, match="search_field must contain SearchField values"):
         LibgenSearch(
             query="test",
             mirror="https://example.com",
@@ -69,6 +84,45 @@ def test_libgen_search_validates_enums():
             search_objects=[SearchObject.FILES],
             search_topics=[SearchTopic.LIBGEN],
         )
+
+
+def test_build_search_url_matches_fixture():
+    search = LibgenSearch(
+        query="Think and Grow Rich",
+        mirror="https://libgen.testmirror",
+        search_field=[
+            SearchField.TITLE,
+            SearchField.AUTHORS,
+            SearchField.SERIES,
+            SearchField.YEAR,
+            SearchField.PUBLISHER,
+            SearchField.ISBN,
+        ],
+        search_objects=[
+            SearchObject.FILES,
+            SearchObject.EDITIONS,
+            SearchObject.SERIES,
+            SearchObject.AUTHORS,
+            SearchObject.PUBLISHERS,
+            SearchObject.WORKS,
+        ],
+        search_topics=[
+            SearchTopic.LIBGEN,
+            SearchTopic.COMICS,
+            SearchTopic.FICTION,
+            SearchTopic.SCIENTIFIC_ARTICLES,
+            SearchTopic.MAGAZINES,
+            SearchTopic.FICTION_RUS,
+            SearchTopic.STANDARDS,
+        ],
+    )
+
+    url = search.build_search_url(results_per_page=25)
+
+    assert (
+        url
+        == "https://libgen.testmirror/index.php?req=Think+and+Grow+Rich&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=25&filesuns=all"
+    )
 
 
 def test_get_search_page_success(monkeypatch):
@@ -85,10 +139,14 @@ def test_get_search_page_success(monkeypatch):
     url, = mock_get.call_args[0]
     params = mock_get.call_args.kwargs["params"]
     assert url == "https://example.com/index.php"
-    assert params["req"] == "test"
-    assert params["columns[]"] == ["title"]
-    assert params["objects[]"] == ["f"]
-    assert params["topics[]"] == ["libgen"]
+    assert params == [
+        ("req", "test"),
+        ("columns[]", "t"),
+        ("objects[]", "f"),
+        ("topics[]", "l"),
+        ("res", "100"),
+        ("filesuns", "all"),
+    ]
 
 
 def test_get_search_page_timeout(monkeypatch):
@@ -123,74 +181,92 @@ def test_get_search_page_http_error(monkeypatch):
         search.get_search_page()
 
 
-def test_get_search_table_no_table_logs_warning(caplog, monkeypatch):
+def test_get_search_table_no_table_raises(monkeypatch):
     search = _make_search()
     response = SimpleNamespace(text="<html></html>")
     monkeypatch.setattr(search, "get_search_page", Mock(return_value=response))
 
-    with caplog.at_level(logging.WARNING):
-        table = search.get_search_table()
+    with pytest.raises(RuntimeError, match="Couldn't find table: unknown reason"):
+        search.get_search_table()
 
-    assert table is None
-    assert "No results table found on search page" in caplog.text
+
+def test_get_search_table_db_error(monkeypatch):
+    search = _make_search()
+    response = SimpleNamespace(text=_load_fixture("libgen_search_error_cant_connect_to_db.html"))
+    monkeypatch.setattr(search, "get_search_page", Mock(return_value=response))
+
+    with pytest.raises(
+        LibgenDatabaseConnectionError, match="Could not connect to the database"
+    ):
+        search.get_search_table()
 
 
 def test_execute_parses_books(monkeypatch):
     search = _make_search()
-    html = """
-    <table id="tablelibgen">
-        <tr>
-            <th>ID</th>
-            <th>Author(s)</th>
-            <th>Title</th>
-            <th>Publisher</th>
-            <th>Year</th>
-            <th>Language</th>
-            <th>Pages</th>
-            <th>Size</th>
-            <th>Extension</th>
-            <th>MD5</th>
-            <th>Mirrors</th>
-            <th>Date Added</th>
-            <th>Date Last Modified</th>
-        </tr>
-        <tr>
-            <td>123</td>
-            <td>Test Author</td>
-            <td><i>Test Title</i></td>
-            <td>Test Publisher</td>
-            <td>2020</td>
-            <td>EN</td>
-            <td>100</td>
-            <td>1 MB</td>
-            <td>pdf</td>
-            <td>abc123</td>
-            <td>
-                <a href="http://m1">m1</a>
-                <a href="http://m2">m2</a>
-            </td>
-            <td>2020-01-01</td>
-            <td>2020-02-02</td>
-        </tr>
-    </table>
-    """
-    response = SimpleNamespace(text=html)
+    response = SimpleNamespace(text=_load_fixture("libgen_search_success.html"))
     monkeypatch.setattr(search, "get_search_page", Mock(return_value=response))
 
     results = search.execute()
+    by_id = _index_by_id(results)
 
-    assert len(results) == 1
-    book = results[0]
-    assert book.id == "123"
-    assert book.title == "Test Title"
-    assert book.author == "Test Author"
-    assert book.publisher == "Test Publisher"
-    assert book.year == "2020"
-    assert book.language == "EN"
-    assert book.pages == "100"
-    assert book.size == "1 MB"
-    assert book.extension == "pdf"
-    assert book.md5 == "abc123"
-    assert book.mirrors == ["http://m1", "http://m2"]
-    assert book.date_added == "2020-01-01"
-    assert book.date_last_modified == "2020-02-02"
+    assert len(results) >= 20
+    book = by_id["93098871"]
+    assert book.title == "Think and grow rich on Brilliance Audio"
+    assert book.author == "Stella, Fred; Gitomer, Jeffrey H.; Hill, Napoleon"
+    assert book.publisher == "Think and Grow Rich on Brilliance Audio"
+    assert book.year == "2011"
+    assert book.language == "English"
+    assert book.pages == "0 / 6"
+    assert book.size == 320
+    assert book.extension == "epub"
+    assert book.md5 == "96f071d706747da515aa042d0cf7cd89"
+    assert len(book.mirrors) == 4
+    assert book.mirrors[0].startswith("/ads.php?md5=")
+    assert book.date_added == "2017-08-15"
+    assert book.date_last_modified == "2024-12-16"
+
+    second_book = by_id["93098872"]
+    assert second_book.size == 437
+    assert second_book.extension == "mobi"
+    assert second_book.md5 == "11d7ff2c089d82e41f64101e8f11db3c"
+
+    third_book = by_id["93238019"]
+    assert third_book.size == 22000
+    assert third_book.extension == "pdf"
+    assert third_book.md5 == "987f731269600de29b2b17031d8b05f2"
+
+
+def test_execute_skips_invalid_md5(monkeypatch):
+    search = _make_search()
+    response = SimpleNamespace(text=_load_fixture("libgen_search_success_invalid_md5.html"))
+    monkeypatch.setattr(search, "get_search_page", Mock(return_value=response))
+
+    results = search.execute()
+    by_id = _index_by_id(results)
+
+    assert "93098871" not in by_id
+    assert "93098872" in by_id
+
+
+def test_execute_skips_invalid_mirror(monkeypatch):
+    search = _make_search()
+    response = SimpleNamespace(text=_load_fixture("libgen_search_success_invalid_mirror.html"))
+    monkeypatch.setattr(search, "get_search_page", Mock(return_value=response))
+
+    results = search.execute()
+    by_id = _index_by_id(results)
+
+    assert "93098871" not in by_id
+    assert "93098872" in by_id
+
+
+def test_execute_skips_no_mirrors(monkeypatch):
+    search = _make_search()
+    response = SimpleNamespace(text=_load_fixture("libgen_search_success_no_mirrors.html"))
+    monkeypatch.setattr(search, "get_search_page", Mock(return_value=response))
+
+    results = search.execute()
+    by_id = _index_by_id(results)
+
+    assert "93098871" not in by_id
+    assert "93098872" in by_id
