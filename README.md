@@ -1,21 +1,25 @@
 # Libgen Bulk
-### Bulk downloading from Library Genesis with enhanced filtering, robust retrying/backoff, mirror management, and complaince.
+#### Bulk downloading from Library Genesis
 
-This is a cli tool that is useful for highly specific bulk downloads from Library Genesis. It has filtering capabilities that are better than libgen itself, it can preprocess files for use in models, it can run in the background, and more. 
+This Python cli tool is useful for specific bulk downloads from Library Genesis. It has filtering capabilities that are **better than Libgen itself**, it can preprocess files for use in models, it can run in the background, and more. 
 
 It focuses on **content over files**: you can download exactly one copy of every text in a genre from a particular year if desired, turned into TXT format for ease of use.
 
-## Why not norrent?
+## Why not torrent?
 
 Libgen Bulk is superior to torrenting because libgen torrent files contain ~1000 books each. This tool can filter by: genre, subject, publication year, type of file, file size, and many other things. There is even an option to use an LLM to verify downloads and maintain corpus quality. 
 
 #### Benefits:
 
-1. It is easier to **maintain legal complaince**: libgen torrent files are not sorted for compliance natively, creating legal risks, and non-leeching torrenting activity (i.e. seeding) usually qualifies as distribution.
-2. It is straightforward to **filter by genre**: libgen has no filtering here besides Fiction, Nonfiction, Academic Articles, etc.
+1. It is easier to **maintain legal complaince**: libgen torrent files are not sorted for compliance, creating legal risks, and non-leeching torrenting activity (i.e. seeding) usually qualifies as distribution.
+2. It is straightforward to **filter by genre**: libgen has no filtering here besides fiction, non-fiction, academic articles, etc.
 3. **Native preprocessing** is included for use in model training.
 
-For example: as of 2026, under US law, things published prior to 1931 are in the public domain. Torrent files are not sorted by publication year, creating legal risk, but filtering using Libgen Bulk can reduce this risk.
+#### For example: 
+
+If you want to download every math textbook published prior to 1931, the lastest year whose works are public domain, this is possible with Libgen Bulk. This can facilitate math-specific model training. 
+
+Libgen itself can search for specific years, but it can't search a specific genre like "math textbooks".
 
 ## Disclaimer
 
