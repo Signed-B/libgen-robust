@@ -115,8 +115,10 @@ class Getter:
         )
         self.mirror = self._normalize_mirror(mirror)
         self.output_dir = self._normalize_output_dir(output_dir)
-        self.search_objects = list(search_objects) if search_objects else [SearchObject.FILES]
-        self.search_topics = list(search_topics) if search_topics else [SearchTopic.LIBGEN]
+        self.search_objects = (
+            list(search_objects) if search_objects else list(SearchObject)
+        )
+        self.search_topics = list(search_topics) if search_topics else list(SearchTopic)
 
     def get(
         self,
