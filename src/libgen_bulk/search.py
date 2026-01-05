@@ -273,12 +273,26 @@ class LibgenSearch:
 
     def _parse_title_from_cell(self, cell) -> str | None:
         bold = cell.find("b")
-        if bold and bold.get_text(strip=True):
-            return bold.get_text(" ", strip=True)
+        if bold:
+            has_series_link = any(
+                (link.get("href") or "").startswith("series.php")
+                for link in bold.find_all("a")
+            )
+            if not has_series_link:
+                bold_text = bold.get_text(" ", strip=True)
+                if bold_text:
+                    return bold_text
+        for link in cell.find_all("a"):
+            href = link.get("href") or ""
+            link_text = link.get_text(" ", strip=True)
+            if href.startswith("edition.php?id=") and link_text:
+                return link_text
         for link in cell.find_all("a"):
             link_text = link.get_text(" ", strip=True)
             if link_text and link_text.lower() != "b":
                 return link_text
+        if bold and bold.get_text(strip=True):
+            return bold.get_text(" ", strip=True)
         return cell.get_text(" ", strip=True) or None
 
     def _parse_add_edit_metadata(self, cell):
