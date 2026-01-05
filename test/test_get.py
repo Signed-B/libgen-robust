@@ -78,8 +78,8 @@ def test_get_uses_search_order_until_threshold(monkeypatch, tmp_path):
     monkeypatch.setattr(Book, "get_download_links", fake_get_links)
     monkeypatch.setattr(
         getter,
-        "_download_with_ssl_skip",
-        lambda book, **kwargs: tmp_path / "ok.pdf",
+        "_download_file",
+        lambda url, book, output_dir, **kwargs: tmp_path / "ok.pdf",
     )
 
     result = getter.get(

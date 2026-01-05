@@ -138,7 +138,6 @@ class Getter:
         search_methods = self._resolve_search_methods(type)
         errors = []
         for method in search_methods:
-            print("Searching with method: ", method)
             query, fields = self._build_query(title, author, method)
             try:
                 books = self._with_backoff(
@@ -153,13 +152,11 @@ class Getter:
                 errors.append(NoResultsError(f"No results for {method.value}"))
                 continue
             scored = self._rank_books(selector, title, author, year, books)
-            print(method.value, scored)
             if not scored:
                 errors.append(NoResultsError(f"No scored results for {method.value}"))
                 continue
             best_score = scored[0][1]
             if best_score < self.score_threshold:
-                print("Below threashold!")
                 errors.append(
                     ScoreThresholdError(
                         f"Best score {best_score:.2f} below threshold {self.score_threshold}"
@@ -170,32 +167,31 @@ class Getter:
             selector._apply_download_links(attempt_books)
             skip_to_next_style = False
             for candidate in attempt_books:
-                print("Candidate", candidate)
                 try:
                     self._with_backoff(
                         lambda: candidate.get_download_links(timeout=self.timeout),
                         self._is_retryable_search_error,
                         "download-links",
                     )
-                    return self._download_with_ssl_skip(
-                        candidate,
-                        mirror=mirror,
-                        output_dir=output_dir,
-                        request_title=title,
-                        request_author=author,
-                        request_year=year,
-                        retryable=self._is_retryable_candidate_error,
+                    resolved = self._resolve_download_link(candidate.download_link, mirror)
+                    output_dir.mkdir(parents=True, exist_ok=True)
+                    return self._with_backoff(
+                        lambda: self._download_file(
+                            resolved,
+                            candidate,
+                            output_dir,
+                            request_title=title,
+                            request_author=author,
+                            request_year=year,
+                        ),
+                        self._is_retryable_candidate_error,
+                        "download-file",
                     )
-                except requests.exceptions.SSLError as exc:
-                    print("SSL error")
-                    errors.append(exc)
-                    continue
                 except (DownloadError, NoResultsError, ScoreThresholdError) as exc:
                     errors.append(exc)
                     skip_to_next_style = True
                     break
                 except GetError as exc:
-                    print("GENEeral error")
                     errors.append(exc)
                     continue
             if skip_to_next_style:
@@ -231,39 +227,6 @@ class Getter:
             self._is_retryable_download_error,
             "download-file",
         )
-
-    def _download_with_ssl_skip(
-        self,
-        book: Book,
-        *,
-        mirror: Optional[str],
-        output_dir: Optional[Path],
-        request_title: Optional[str],
-        request_author: Optional[str | List[str]],
-        request_year: Optional[int],
-        retryable=None,
-    ) -> Path:
-        if not book.download_link:
-            raise ValueError("book.download_link must be set before downloading")
-        resolved = self._resolve_download_link(book.download_link, mirror)
-        output_dir = output_dir or self.output_dir
-        output_dir.mkdir(parents=True, exist_ok=True)
-        retryable = retryable or self._is_retryable_download_error
-        try:
-            return self._with_backoff(
-                lambda: self._download_file(
-                    resolved,
-                    book,
-                    output_dir,
-                    request_title=request_title,
-                    request_author=request_author,
-                    request_year=request_year,
-                ),
-                retryable,
-                "download-file",
-            )
-        except requests.exceptions.SSLError:
-            raise
 
     def _execute_search(
         self,
