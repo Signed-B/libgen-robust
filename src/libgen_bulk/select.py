@@ -8,7 +8,11 @@ from enum import Enum
 from typing import Iterable, List, Optional, Tuple
 from urllib.parse import urlparse, urljoin
 
+from langdetect import DetectorFactory, LangDetectException, detect
+
 from .book import Book
+
+DetectorFactory.seed = 0
 
 
 class Heuristic(Enum):
@@ -59,6 +63,20 @@ DEFAULT_PENALTY_KEYWORDS = [
 
 DEFAULT_ENABLED_HEURISTICS = {heuristic.key for heuristic in Heuristic}
 
+LANGUAGE_CODE_MAP = {
+    "english": "en",
+    "spanish": "es",
+    "french": "fr",
+    "german": "de",
+    "italian": "it",
+    "portuguese": "pt",
+    "russian": "ru",
+    "chinese": "zh-cn",
+    "japanese": "ja",
+    "korean": "ko",
+    "dutch": "nl",
+}
+
 
 class Selector:
     def __init__(
@@ -103,6 +121,9 @@ class Selector:
         if not table:
             return []
         table = self._filter_by_language(table)
+        if not table:
+            return []
+        table = self._filter_by_title_language(table, title)
         if not table:
             return []
         if self.use_llm:
@@ -283,6 +304,68 @@ class Selector:
             if book_language == self.language:
                 filtered.append(book)
         return filtered
+
+    def _filter_by_title_language(self, table: List[Book], query_title: str) -> List[Book]:
+        if not self.language:
+            return table
+        target_lang = self._language_code()
+        normalized_query = self._normalize_text(query_title or "")
+        filtered = []
+        for book in table:
+            title_text = (book.title or "").strip()
+            if not title_text:
+                filtered.append(book)
+                continue
+            if self._title_matches_language(title_text, normalized_query, target_lang):
+                filtered.append(book)
+        return filtered
+
+    def _title_matches_language(
+        self,
+        title_text: str,
+        normalized_query: str,
+        target_lang: str,
+    ) -> bool:
+        normalized_title = self._normalize_text(title_text)
+        if not normalized_title or not target_lang:
+            return True
+        if self._is_short_title(normalized_title) and self._is_ascii_text(normalized_title):
+            return True
+        title_lang = self._detect_language(normalized_title)
+        if title_lang == target_lang:
+            return True
+        if not normalized_query:
+            return False
+        query_tokens = set(normalized_query.split())
+        remaining_tokens = [
+            token for token in normalized_title.split() if token not in query_tokens
+        ]
+        if not remaining_tokens:
+            return True
+        remaining_lang = self._detect_language(" ".join(remaining_tokens))
+        if remaining_lang is None:
+            return False
+        return remaining_lang == target_lang
+
+    def _detect_language(self, text: str) -> Optional[str]:
+        try:
+            return detect(text)
+        except LangDetectException:
+            return None
+
+    def _is_ascii_text(self, text: str) -> bool:
+        return all(ord(char) < 128 for char in text)
+
+    def _is_short_title(self, text: str) -> bool:
+        stripped = text.replace(" ", "")
+        return len(stripped) < 10 or len(text.split()) < 2
+
+    def _language_code(self) -> str:
+        if not self.language:
+            return ""
+        if self.language in LANGUAGE_CODE_MAP.values():
+            return self.language
+        return LANGUAGE_CODE_MAP.get(self.language, self.language)
 
     def _apply_download_links(self, books: List[Book]) -> None:
         for book in books:
