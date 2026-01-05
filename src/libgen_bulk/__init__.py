@@ -1,6 +1,7 @@
 """libgen-bulk package."""
 
 from .book import Book
+from .get import GetQueryMethod, GetType, Getter
 from .search import (
     LibgenDatabaseConnectionError,
     LibgenSearch,
@@ -14,6 +15,9 @@ from .select import Selector
 __all__ = [
     "__version__",
     "Book",
+    "GetQueryMethod",
+    "GetType",
+    "Getter",
     "LibgenDatabaseConnectionError",
     "LibgenReadConnectionLimitError",
     "LibgenSearch",
