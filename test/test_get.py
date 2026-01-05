@@ -5,7 +5,7 @@ import pytest
 
 import libgen_bulk.get as get_module
 from libgen_bulk.book import Book
-from libgen_bulk.get import GetQueryMethod, Getter, RetryableDownloadError
+from libgen_bulk.get import DownloadError, GetError, GetQueryMethod, Getter, RetryableDownloadError
 from libgen_bulk.search import SearchField
 
 
@@ -93,13 +93,18 @@ def test_get_uses_search_order_until_threshold(monkeypatch, tmp_path):
     assert calls[1][1] == (SearchField.AUTHORS,)
 
 
-def test_get_skips_ssl_error_and_uses_next_candidate(monkeypatch, tmp_path):
+def test_get_retries_ssl_error_on_candidate(monkeypatch, tmp_path):
     getter = Getter(
         score_threshold=5,
         search_order=[GetQueryMethod.TITLE],
         mirror="https://libgen.example",
         output_dir=tmp_path,
         max_candidates=2,
+        max_attempts=3,
+        backoff_base=0.01,
+        backoff_factor=2.0,
+        backoff_max=0.05,
+        jitter=0.0,
     )
     first_book = _make_book(
         id="1",
@@ -123,15 +128,16 @@ def test_get_skips_ssl_error_and_uses_next_candidate(monkeypatch, tmp_path):
         ),
     )
 
-    attempts = []
+    attempts = {"1": 0, "2": 0}
 
     def fake_download(url, book, output_dir, **_kwargs):
-        attempts.append(book.id)
-        if book.id == "1":
+        attempts[book.id] += 1
+        if book.id == "1" and attempts["1"] < 3:
             raise get_module.requests.exceptions.SSLError("bad ssl")
         return output_dir / "ok.pdf"
 
     monkeypatch.setattr(getter, "_download_file", fake_download)
+    monkeypatch.setattr(get_module.time, "sleep", lambda value: None)
 
     result = getter.get(
         title="Think and Grow Rich",
@@ -140,7 +146,8 @@ def test_get_skips_ssl_error_and_uses_next_candidate(monkeypatch, tmp_path):
     )
 
     assert result == tmp_path / "ok.pdf"
-    assert attempts == ["1", "2"]
+    assert attempts["1"] == 3
+    assert attempts["2"] == 0
 
 
 def test_download_requires_download_link(tmp_path):
@@ -243,6 +250,84 @@ def test_download_retries_on_retryable_error(monkeypatch, tmp_path):
     assert result == tmp_path / "ok.pdf"
     assert attempts["count"] == 3
     assert len(sleeps) == 2
+
+
+def test_get_retries_candidate_on_get_error(monkeypatch, tmp_path):
+    getter = Getter(
+        score_threshold=1,
+        search_order=[GetQueryMethod.TITLE],
+        mirror="https://libgen.example",
+        output_dir=tmp_path,
+        max_attempts=3,
+        backoff_base=0.01,
+        backoff_factor=2.0,
+        backoff_max=0.05,
+        jitter=0.0,
+    )
+    book = _make_book()
+
+    monkeypatch.setattr(getter, "_execute_search", lambda *args, **kwargs: [book])
+    monkeypatch.setattr(
+        Book,
+        "get_download_links",
+        lambda self, cover=True, timeout=None: setattr(
+            self, "download_link", "https://libgen.example/get.php?md5=abc"
+        ),
+    )
+
+    attempts = {"count": 0}
+
+    def fake_download(url, book, output_dir, **_kwargs):
+        attempts["count"] += 1
+        if attempts["count"] < 3:
+            raise GetError("transient")
+        return output_dir / "ok.pdf"
+
+    monkeypatch.setattr(getter, "_download_file", fake_download)
+    monkeypatch.setattr(get_module.time, "sleep", lambda value: None)
+
+    result = getter.get(title="Example Title", author="Example Author")
+
+    assert result == tmp_path / "ok.pdf"
+    assert attempts["count"] == 3
+
+
+def test_get_download_error_moves_to_next_search_style(monkeypatch, tmp_path):
+    getter = Getter(
+        score_threshold=1,
+        search_order=[GetQueryMethod.TITLE, GetQueryMethod.AUTHOR],
+        mirror="https://libgen.example",
+        output_dir=tmp_path,
+    )
+    first_book = _make_book(id="1")
+    second_book = _make_book(id="2")
+    calls = []
+
+    def fake_execute(query, fields, mirror):
+        calls.append((query, tuple(fields), mirror))
+        return [first_book] if len(calls) == 1 else [second_book]
+
+    monkeypatch.setattr(getter, "_execute_search", fake_execute)
+    monkeypatch.setattr(
+        Book,
+        "get_download_links",
+        lambda self, cover=True, timeout=None: setattr(
+            self, "download_link", f"https://libgen.example/get.php?md5={self.md5}"
+        ),
+    )
+
+    def fake_download(url, book, output_dir, **_kwargs):
+        if book.id == "1":
+            raise DownloadError("bad file")
+        return output_dir / "ok.pdf"
+
+    monkeypatch.setattr(getter, "_download_file", fake_download)
+
+    result = getter.get(title="Example Title", author="Example Author")
+
+    assert result == tmp_path / "ok.pdf"
+    assert calls[0][1] == (SearchField.TITLE,)
+    assert calls[1][1] == (SearchField.AUTHORS,)
 
 
 def test_download_refuses_overwrite(monkeypatch, tmp_path):
