@@ -30,17 +30,17 @@ class Heuristic(Enum):
 
 
 DEFAULT_WEIGHTS = {
-    Heuristic.EXACT_TITLE.key: 10.0,
-    Heuristic.TITLE_SUBSTRING.key: 4.0,
-    Heuristic.TITLE_SIMILARITY.key: 6.0,
+    Heuristic.EXACT_TITLE.key: 5.0,
+    Heuristic.TITLE_SUBSTRING.key: 3.0,
+    Heuristic.TITLE_SIMILARITY.key: 2.0,
     Heuristic.EXACT_YEAR.key: 5.0,
     Heuristic.YEAR_DISTANCE.key: 0,
     Heuristic.COMMON_YEAR.key: 3.0,
-    Heuristic.FIRST_AUTHOR_EXACT.key: 6.0,
+    Heuristic.FIRST_AUTHOR_EXACT.key: 5.0,
     Heuristic.ANY_AUTHOR_EXACT.key: 3.0,
-    Heuristic.FIRST_AUTHOR_SIMILARITY.key: 2.0,
-    Heuristic.EXTRA_AUTHOR_PENALTY.key: -3.0,
-    Heuristic.KEYWORD_PENALTY.key: -7.0,
+    Heuristic.FIRST_AUTHOR_SIMILARITY.key: 8.0,
+    Heuristic.EXTRA_AUTHOR_PENALTY.key: -10.0,
+    Heuristic.KEYWORD_PENALTY.key: -12.0,
 }
 
 DEFAULT_PENALTY_KEYWORDS = [
