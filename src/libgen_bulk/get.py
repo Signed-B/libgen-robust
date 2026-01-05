@@ -58,10 +58,10 @@ GetType = GetQueryMethod
 
 
 DEFAULT_SEARCH_ORDER = [
-    GetQueryMethod.TITLE,
-    GetQueryMethod.TITLEKEYWORD,
     GetQueryMethod.TITLEAUTHOR,
     GetQueryMethod.TITLEKEYWORDAUTHORLAST,
+    GetQueryMethod.TITLE,
+    GetQueryMethod.TITLEKEYWORD,
     GetQueryMethod.AUTHOR,
     GetQueryMethod.AUTHORLAST,
 ]
@@ -85,7 +85,7 @@ class Getter:
     def __init__(
         self,
         score_threshold: int,
-        search_order: Optional[Iterable[GetQueryMethod]] = None,
+        search_order: Optional[Iterable[GetQueryMethod]] = DEFAULT_SEARCH_ORDER,
         *,
         timeout: int = 20,
         max_attempts: int = 5,
@@ -138,6 +138,7 @@ class Getter:
         search_methods = self._resolve_search_methods(type)
         errors = []
         for method in search_methods:
+            print("Searching with method: ", method)
             query, fields = self._build_query(title, author, method)
             try:
                 books = self._with_backoff(
@@ -152,11 +153,13 @@ class Getter:
                 errors.append(NoResultsError(f"No results for {method.value}"))
                 continue
             scored = self._rank_books(selector, title, author, year, books)
+            print(method.value, scored)
             if not scored:
                 errors.append(NoResultsError(f"No scored results for {method.value}"))
                 continue
             best_score = scored[0][1]
             if best_score < self.score_threshold:
+                print("Below threashold!")
                 errors.append(
                     ScoreThresholdError(
                         f"Best score {best_score:.2f} below threshold {self.score_threshold}"
@@ -165,7 +168,9 @@ class Getter:
                 continue
             attempt_books = [book for book, _ in scored[: self.max_candidates]]
             selector._apply_download_links(attempt_books)
+            skip_to_next_style = False
             for candidate in attempt_books:
+                print("Candidate", candidate)
                 try:
                     self._with_backoff(
                         lambda: candidate.get_download_links(timeout=self.timeout),
@@ -179,16 +184,22 @@ class Getter:
                         request_title=title,
                         request_author=author,
                         request_year=year,
+                        retryable=self._is_retryable_candidate_error,
                     )
                 except requests.exceptions.SSLError as exc:
+                    print("SSL error")
                     errors.append(exc)
                     continue
-                except RetryableDownloadError as exc:
+                except (DownloadError, NoResultsError, ScoreThresholdError) as exc:
                     errors.append(exc)
-                    continue
+                    skip_to_next_style = True
+                    break
                 except GetError as exc:
+                    print("GENEeral error")
                     errors.append(exc)
                     continue
+            if skip_to_next_style:
+                continue
         if errors:
             raise errors[-1]
         raise NoResultsError("No results found")
@@ -230,12 +241,14 @@ class Getter:
         request_title: Optional[str],
         request_author: Optional[str | List[str]],
         request_year: Optional[int],
+        retryable=None,
     ) -> Path:
         if not book.download_link:
             raise ValueError("book.download_link must be set before downloading")
         resolved = self._resolve_download_link(book.download_link, mirror)
         output_dir = output_dir or self.output_dir
         output_dir.mkdir(parents=True, exist_ok=True)
+        retryable = retryable or self._is_retryable_download_error
         try:
             return self._with_backoff(
                 lambda: self._download_file(
@@ -246,7 +259,7 @@ class Getter:
                     request_author=request_author,
                     request_year=request_year,
                 ),
-                self._is_retryable_download_error,
+                retryable,
                 "download-file",
             )
         except requests.exceptions.SSLError:
@@ -529,11 +542,16 @@ class Getter:
         return isinstance(exc, retryables)
 
     def _is_retryable_download_error(self, exc: Exception) -> bool:
-        if isinstance(exc, requests.exceptions.SSLError):
-            return False
         return isinstance(
             exc, (RetryableDownloadError, requests.exceptions.RequestException)
         )
+
+    def _is_retryable_candidate_error(self, exc: Exception) -> bool:
+        if isinstance(exc, DownloadError):
+            return False
+        if isinstance(exc, (RetryableDownloadError, requests.exceptions.RequestException)):
+            return True
+        return isinstance(exc, GetError)
 
     def _validate_score_threshold(self, threshold: int) -> int:
         if not isinstance(threshold, int) or isinstance(threshold, bool):
