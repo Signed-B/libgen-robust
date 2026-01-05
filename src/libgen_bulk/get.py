@@ -170,6 +170,9 @@ class Getter:
                         candidate,
                         mirror=mirror,
                         output_dir=output_dir,
+                        request_title=title,
+                        request_author=author,
+                        request_year=year,
                     )
                 except requests.exceptions.SSLError as exc:
                     errors.append(exc)
@@ -190,6 +193,9 @@ class Getter:
         *,
         mirror: Optional[str] = None,
         output_dir: Optional[str | Path] = None,
+        request_title: Optional[str] = None,
+        request_author: Optional[str | List[str]] = None,
+        request_year: Optional[int] = None,
     ) -> Path:
         if not book.download_link:
             raise ValueError("book.download_link must be set before downloading")
@@ -197,7 +203,14 @@ class Getter:
         output_dir = self._normalize_output_dir(output_dir) if output_dir else self.output_dir
         output_dir.mkdir(parents=True, exist_ok=True)
         return self._with_backoff(
-            lambda: self._download_file(resolved, book, output_dir),
+            lambda: self._download_file(
+                resolved,
+                book,
+                output_dir,
+                request_title=request_title,
+                request_author=request_author,
+                request_year=request_year,
+            ),
             self._is_retryable_download_error,
             "download-file",
         )
@@ -208,6 +221,9 @@ class Getter:
         *,
         mirror: Optional[str],
         output_dir: Optional[Path],
+        request_title: Optional[str],
+        request_author: Optional[str | List[str]],
+        request_year: Optional[int],
     ) -> Path:
         if not book.download_link:
             raise ValueError("book.download_link must be set before downloading")
@@ -216,7 +232,14 @@ class Getter:
         output_dir.mkdir(parents=True, exist_ok=True)
         try:
             return self._with_backoff(
-                lambda: self._download_file(resolved, book, output_dir),
+                lambda: self._download_file(
+                    resolved,
+                    book,
+                    output_dir,
+                    request_title=request_title,
+                    request_author=request_author,
+                    request_year=request_year,
+                ),
                 self._is_retryable_download_error,
                 "download-file",
             )
@@ -276,13 +299,28 @@ class Getter:
         ranked = selector._rank_books(books, context)
         return [(book, selector._score_book(book, context)) for book in ranked]
 
-    def _download_file(self, url: str, book: Book, output_dir: Path) -> Path:
+    def _download_file(
+        self,
+        url: str,
+        book: Book,
+        output_dir: Path,
+        *,
+        request_title: Optional[str] = None,
+        request_author: Optional[str | List[str]] = None,
+        request_year: Optional[int] = None,
+    ) -> Path:
         response = requests.get(url, stream=True, timeout=self.timeout)
         if response.status_code in {429} or response.status_code >= 500:
             raise RetryableDownloadError(f"HTTP {response.status_code} for {url}")
         if response.status_code >= 400:
             raise DownloadError(f"HTTP {response.status_code} for {url}")
-        filename = self._build_filename(book, response)
+        filename = self._build_filename(
+            book,
+            response,
+            request_title=request_title,
+            request_author=request_author,
+            request_year=request_year,
+        )
         target = output_dir / filename
         if target.exists():
             raise FileExistsError(f"Refusing to overwrite existing file: {target}")
@@ -299,11 +337,21 @@ class Getter:
         temp_target.replace(target)
         return target
 
-    def _build_filename(self, book: Book, response: requests.Response) -> str:
+    def _build_filename(
+        self,
+        book: Book,
+        response: requests.Response,
+        *,
+        request_title: Optional[str] = None,
+        request_author: Optional[str | List[str]] = None,
+        request_year: Optional[int] = None,
+    ) -> str:
         download_name = self._get_download_name(book, response)
-        title = self._sanitize_component(book.title or "libgen")
-        author = self._sanitize_component(book.author or "")
-        year = self._extract_year(book.year)
+        title = self._sanitize_component(request_title or book.title or "libgen")
+        author = self._sanitize_component(
+            self._format_request_author(request_author) or book.author or ""
+        )
+        year = self._extract_year(str(request_year) if request_year else book.year)
         parts = [part for part in [title, author, year] if part]
         parts.append(download_name)
         return " - ".join(parts)
@@ -333,6 +381,15 @@ class Getter:
         cleaned = re.sub(r"\s+", " ", cleaned)
         cleaned = cleaned.strip(" .-_")
         return cleaned or "libgen"
+
+    def _format_request_author(self, author: Optional[str | List[str]]) -> str:
+        if author is None:
+            return ""
+        if isinstance(author, str):
+            return author.strip()
+        if isinstance(author, list):
+            return ", ".join(part.strip() for part in author if part.strip())
+        raise TypeError("request_author must be a string or list of strings")
 
     def _extract_year(self, year_text: Optional[str]) -> str:
         if not year_text:
