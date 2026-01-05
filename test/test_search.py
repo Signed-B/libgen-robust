@@ -4,6 +4,7 @@ from unittest.mock import Mock
 
 import pytest
 import requests
+from bs4 import BeautifulSoup
 
 from libgen_bulk.book import Book
 from libgen_bulk.search import (
@@ -246,7 +247,10 @@ def test_execute_parses_books(monkeypatch):
 
     assert len(results) >= 20
     book = by_id["93098871"]
-    assert book.title == "Think and grow rich on Brilliance Audio"
+    assert (
+        book.title
+        == "Selling You! : A Practical Guide to Achieving the Most by Becoming Your Best Unabridged"
+    )
     assert book.author == "Stella, Fred; Gitomer, Jeffrey H.; Hill, Napoleon"
     assert book.series is None
     assert book.isbn == ["9781455810031", "1455810037"]
@@ -326,3 +330,15 @@ def test_execute_ignores_series_title_in_bold(monkeypatch):
     assert results
     book = results[0]
     assert book.title == "Harry Potter and the Deathly Hallows # (UK)"
+
+
+def test_parse_title_skips_bold_text():
+    search = _make_search()
+    soup = BeautifulSoup(
+        "<td><b><a href=\"series.php?id=1\">Series Name</a></b><br>"
+        "<a href=\"edition.php?id=2\">Real Title</a></td>",
+        "html.parser",
+    )
+    cell = soup.find("td")
+
+    assert search._parse_title_from_cell(cell) == "Real Title"
