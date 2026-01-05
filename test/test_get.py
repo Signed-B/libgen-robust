@@ -176,6 +176,7 @@ def test_download_writes_file_and_uses_output_dir(monkeypatch, tmp_path):
     assert result.exists()
     assert result.read_bytes() == b"payload"
     assert result.parent == target_dir
+    assert result.name == "Example Title - Example Author - 2020 - download.pdf"
 
 
 def test_download_retries_on_retryable_error(monkeypatch, tmp_path):
@@ -228,7 +229,7 @@ def test_download_refuses_overwrite(monkeypatch, tmp_path):
     response.iter_content = lambda chunk_size=8192: [b"payload"]
     monkeypatch.setattr(get_module.requests, "get", lambda *args, **kwargs: response)
 
-    existing = tmp_path / "Example_Title_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.pdf"
+    existing = tmp_path / "Example Title - Example Author - 2020 - download.pdf"
     existing.write_bytes(b"existing")
 
     with pytest.raises(FileExistsError, match="Refusing to overwrite"):
