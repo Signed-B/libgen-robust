@@ -218,3 +218,45 @@ def test_selector_rejects_invalid_language():
 def test_normalize_text_preserves_non_ascii_letters():
     selector = Selector(mirror="https://libgen.test")
     assert selector._normalize_text("中文 标题 123") == "中文 标题 123"
+
+
+def test_select_filters_title_language_mismatch():
+    selector = Selector(language="English", mirror="https://libgen.test")
+    book = _make_book(title="中文 标题", language="English")
+
+    selected = selector.select(
+        title="English Title",
+        authors="Example Author",
+        year=2020,
+        table=[book],
+    )
+
+    assert selected == []
+
+
+def test_select_allows_title_language_mismatch_when_in_query():
+    selector = Selector(language="English", mirror="https://libgen.test")
+    book = _make_book(title="ABC 中文", language="English")
+
+    selected = selector.select(
+        title="ABC 中文",
+        authors="Example Author",
+        year=2020,
+        table=[book],
+    )
+
+    assert selected == [book]
+
+
+def test_select_rejects_title_language_mismatch_not_in_query():
+    selector = Selector(language="English", mirror="https://libgen.test")
+    book = _make_book(title="ABC 中文", language="English")
+
+    selected = selector.select(
+        title="ABC",
+        authors="Example Author",
+        year=2020,
+        table=[book],
+    )
+
+    assert selected == []
