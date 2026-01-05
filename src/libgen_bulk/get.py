@@ -93,6 +93,7 @@ class Getter:
         backoff_factor: float = 2.0,
         backoff_max: float = 60.0,
         jitter: float = 0.2,
+        max_candidates: int = 5,
         mirror: Optional[str] = None,
         output_dir: Optional[str | Path] = None,
         search_objects: Optional[Iterable[SearchObject]] = None,
@@ -107,6 +108,7 @@ class Getter:
         self.backoff_factor = self._validate_backoff_factor(backoff_factor)
         self.backoff_max = self._validate_backoff_max(backoff_max)
         self.jitter = self._validate_jitter(jitter)
+        self.max_candidates = self._validate_max_candidates(max_candidates)
         self.mirror = self._normalize_mirror(mirror)
         self.output_dir = self._normalize_output_dir(output_dir)
         self.search_objects = list(search_objects) if search_objects else [SearchObject.FILES]
@@ -116,7 +118,7 @@ class Getter:
         self,
         title: str,
         author: str | List[str],
-        year: Optional[int],
+        year: Optional[int] = None,
         type: Optional[GetType] = None,
         *,
         mirror: Optional[str] = None,
@@ -143,9 +145,11 @@ class Getter:
             if not books:
                 errors.append(NoResultsError(f"No results for {method.value}"))
                 continue
-            best_book, best_score = self._select_best_book(
-                selector, title, author, year, books
-            )
+            scored = self._rank_books(selector, title, author, year, books)
+            if not scored:
+                errors.append(NoResultsError(f"No scored results for {method.value}"))
+                continue
+            best_score = scored[0][1]
             if best_score < self.score_threshold:
                 errors.append(
                     ScoreThresholdError(
@@ -153,12 +157,29 @@ class Getter:
                     )
                 )
                 continue
-            self._with_backoff(
-                lambda: best_book.get_download_links(timeout=self.timeout),
-                self._is_retryable_search_error,
-                "download-links",
-            )
-            return self.download(best_book, mirror=mirror, output_dir=output_dir)
+            attempt_books = [book for book, _ in scored[: self.max_candidates]]
+            selector._apply_download_links(attempt_books)
+            for candidate in attempt_books:
+                try:
+                    self._with_backoff(
+                        lambda: candidate.get_download_links(timeout=self.timeout),
+                        self._is_retryable_search_error,
+                        "download-links",
+                    )
+                    return self._download_with_ssl_skip(
+                        candidate,
+                        mirror=mirror,
+                        output_dir=output_dir,
+                    )
+                except requests.exceptions.SSLError as exc:
+                    errors.append(exc)
+                    continue
+                except RetryableDownloadError as exc:
+                    errors.append(exc)
+                    continue
+                except GetError as exc:
+                    errors.append(exc)
+                    continue
         if errors:
             raise errors[-1]
         raise NoResultsError("No results found")
@@ -180,6 +201,27 @@ class Getter:
             self._is_retryable_download_error,
             "download-file",
         )
+
+    def _download_with_ssl_skip(
+        self,
+        book: Book,
+        *,
+        mirror: Optional[str],
+        output_dir: Optional[Path],
+    ) -> Path:
+        if not book.download_link:
+            raise ValueError("book.download_link must be set before downloading")
+        resolved = self._resolve_download_link(book.download_link, mirror)
+        output_dir = output_dir or self.output_dir
+        output_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            return self._with_backoff(
+                lambda: self._download_file(resolved, book, output_dir),
+                self._is_retryable_download_error,
+                "download-file",
+            )
+        except requests.exceptions.SSLError:
+            raise
 
     def _execute_search(
         self,
@@ -216,6 +258,23 @@ class Getter:
         best_score = selector._score_book(best, context)
         selector._apply_download_links([best])
         return best, best_score
+
+    def _rank_books(
+        self,
+        selector: Selector,
+        title: str,
+        author: str | List[str],
+        year: Optional[int],
+        books: List[Book],
+    ) -> List[tuple[Book, float]]:
+        context = selector._build_context(
+            title,
+            selector._normalize_authors(author),
+            year,
+            books,
+        )
+        ranked = selector._rank_books(books, context)
+        return [(book, selector._score_book(book, context)) for book in ranked]
 
     def _download_file(self, url: str, book: Book, output_dir: Path) -> Path:
         response = requests.get(url, stream=True, timeout=self.timeout)
@@ -387,6 +446,8 @@ class Getter:
         return isinstance(exc, retryables)
 
     def _is_retryable_download_error(self, exc: Exception) -> bool:
+        if isinstance(exc, requests.exceptions.SSLError):
+            return False
         return isinstance(
             exc, (RetryableDownloadError, requests.exceptions.RequestException)
         )
@@ -442,6 +503,13 @@ class Getter:
         if jitter < 0:
             raise ValueError("jitter must be non-negative")
         return float(jitter)
+
+    def _validate_max_candidates(self, max_candidates: int) -> int:
+        if not isinstance(max_candidates, int) or isinstance(max_candidates, bool):
+            raise TypeError("max_candidates must be an integer")
+        if max_candidates < 1:
+            raise ValueError("max_candidates must be at least 1")
+        return max_candidates
 
     def _normalize_mirror(self, mirror: Optional[str]) -> Optional[str]:
         if mirror is None:
