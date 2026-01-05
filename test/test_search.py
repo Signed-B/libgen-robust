@@ -313,3 +313,16 @@ def test_execute_skips_no_mirrors(monkeypatch):
 
     assert "93098871" not in by_id
     assert "93098872" in by_id
+
+
+def test_execute_ignores_series_title_in_bold(monkeypatch):
+    search = _make_search()
+    response = SimpleNamespace(
+        text=_load_fixture("libgen_search_success_series_titles.html")
+    )
+    monkeypatch.setattr(search, "get_search_page", Mock(return_value=response))
+
+    results = search.execute()
+    assert results
+    book = results[0]
+    assert book.title == "Harry Potter and the Deathly Hallows # (UK)"
