@@ -46,6 +46,12 @@ def test_build_query_title_keyword_removes_stopwords():
     assert fields == [SearchField.TITLE]
 
 
+def test_default_search_scope_includes_all_enums():
+    getter = Getter(score_threshold=1, search_order=[GetQueryMethod.TITLE])
+    assert getter.search_objects == list(get_module.SearchObject)
+    assert getter.search_topics == list(get_module.SearchTopic)
+
+
 def test_get_uses_search_order_until_threshold(monkeypatch, tmp_path):
     getter = Getter(
         score_threshold=20,
