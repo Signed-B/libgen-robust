@@ -300,26 +300,45 @@ class Getter:
         return target
 
     def _build_filename(self, book: Book, response: requests.Response) -> str:
+        download_name = self._get_download_name(book, response)
+        title = self._sanitize_component(book.title or "libgen")
+        author = self._sanitize_component(book.author or "")
+        year = self._extract_year(book.year)
+        parts = [part for part in [title, author, year] if part]
+        parts.append(download_name)
+        return " - ".join(parts)
+
+    def _get_download_name(self, book: Book, response: requests.Response) -> str:
         header = response.headers.get("Content-Disposition", "")
         match = re.search(r'filename="?([^";]+)"?', header)
         if match:
-            return self._sanitize_filename(match.group(1))
-        base = book.title or "libgen"
-        ext = ""
-        if book.extension:
-            ext = f".{book.extension.lstrip('.')}"
-        else:
-            parsed = urlparse(response.url)
-            if "." in Path(parsed.path).name:
-                ext = f".{Path(parsed.path).name.split('.')[-1]}"
-        slug = self._sanitize_filename(base)
-        suffix = f"_{book.md5}" if book.md5 else ""
-        return f"{slug}{suffix}{ext}"
+            return self._sanitize_download_filename(match.group(1))
+        parsed = urlparse(response.url)
+        name = Path(parsed.path).name
+        if name and "." in name and name.lower() not in {"get.php", "get"}:
+            return self._sanitize_download_filename(name)
+        suffix = f".{book.extension.lstrip('.')}" if book.extension else ""
+        return f"download{suffix}"
 
-    def _sanitize_filename(self, name: str) -> str:
-        cleaned = re.sub(r"[^\w.-]+", "_", name.strip())
-        cleaned = re.sub(r"_+", "_", cleaned).strip("._")
+    def _sanitize_download_filename(self, name: str) -> str:
+        path = Path(name)
+        stem = self._sanitize_component(path.stem)
+        suffix = path.suffix
+        if not stem:
+            stem = "download"
+        return f"{stem}{suffix}"
+
+    def _sanitize_component(self, name: str) -> str:
+        cleaned = re.sub(r"[^\w.\- ]+", "_", name.strip())
+        cleaned = re.sub(r"\s+", " ", cleaned)
+        cleaned = cleaned.strip(" .-_")
         return cleaned or "libgen"
+
+    def _extract_year(self, year_text: Optional[str]) -> str:
+        if not year_text:
+            return ""
+        match = re.search(r"(\d{4})", str(year_text))
+        return match.group(1) if match else ""
 
     def _build_query(
         self,
