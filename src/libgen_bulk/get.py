@@ -94,6 +94,7 @@ class Getter:
         backoff_max: float = 60.0,
         jitter: float = 0.2,
         max_candidates: int = 5,
+        verbose_print_links: bool = False,
         mirror: Optional[str] = None,
         output_dir: Optional[str | Path] = None,
         search_objects: Optional[Iterable[SearchObject]] = None,
@@ -109,6 +110,9 @@ class Getter:
         self.backoff_max = self._validate_backoff_max(backoff_max)
         self.jitter = self._validate_jitter(jitter)
         self.max_candidates = self._validate_max_candidates(max_candidates)
+        self.verbose_print_links = self._validate_verbose_print_links(
+            verbose_print_links
+        )
         self.mirror = self._normalize_mirror(mirror)
         self.output_dir = self._normalize_output_dir(output_dir)
         self.search_objects = list(search_objects) if search_objects else [SearchObject.FILES]
@@ -259,6 +263,7 @@ class Getter:
             search_objects=self.search_objects,
             search_topics=self.search_topics,
             timeout=self.timeout,
+            verbose_print_links=self.verbose_print_links,
         )
         return search.execute()
 
@@ -586,6 +591,11 @@ class Getter:
         if max_candidates < 1:
             raise ValueError("max_candidates must be at least 1")
         return max_candidates
+
+    def _validate_verbose_print_links(self, value: bool) -> bool:
+        if not isinstance(value, bool):
+            raise TypeError("verbose_print_links must be a boolean")
+        return value
 
     def _normalize_mirror(self, mirror: Optional[str]) -> Optional[str]:
         if mirror is None:

@@ -63,6 +63,7 @@ class LibgenSearch:
         search_objects: Iterable[SearchObject] | SearchObject,
         search_topics: Iterable[SearchTopic] | SearchTopic,
         timeout: int | None = None,
+        verbose_print_links: bool = False,
     ):
         self._logger = logging.getLogger(__name__)
         self.query = self._validate_query(query)
@@ -78,6 +79,7 @@ class LibgenSearch:
             search_topics, SearchTopic, "search_topics"
         )
         self.timeout = timeout
+        self.verbose_print_links = self._validate_verbose_print_links(verbose_print_links)
 
     def _validate_query(self, query: str) -> str:
         if not isinstance(query, str) or not query.strip():
@@ -110,6 +112,11 @@ class LibgenSearch:
             if not isinstance(item, enum_type):
                 raise TypeError(f"{field_name} must contain {enum_type.__name__} values")
         return enum_list
+
+    def _validate_verbose_print_links(self, value: bool) -> bool:
+        if not isinstance(value, bool):
+            raise TypeError("verbose_print_links must be a boolean")
+        return value
 
     def build_search_params(self, results_per_page: int = 100):
         params = [
@@ -188,6 +195,8 @@ class LibgenSearch:
                     )
             table = soup.find("table", {"id": "tablelibgen"})
             if table is None:
+                if self.verbose_print_links:
+                    print(self.build_search_url(results_per_page=100))
                 raise RuntimeError("Couldn't find table: unknown reason")
             return table
         except Exception as e:
