@@ -195,6 +195,24 @@ def test_get_search_table_no_table_raises(monkeypatch):
         search.get_search_table()
 
 
+def test_get_search_table_prints_link_when_verbose(monkeypatch, capsys):
+    search = LibgenSearch(
+        query="test",
+        mirror="https://example.com",
+        search_field=SearchField.TITLE,
+        search_objects=[SearchObject.FILES],
+        search_topics=[SearchTopic.LIBGEN],
+        verbose_print_links=True,
+    )
+    response = SimpleNamespace(text="<html></html>")
+    monkeypatch.setattr(search, "get_search_page", Mock(return_value=response))
+
+    with pytest.raises(RuntimeError, match="Couldn't find table: unknown reason"):
+        search.get_search_table()
+
+    output = capsys.readouterr().out.strip()
+    assert output == search.build_search_url(results_per_page=100)
+
 def test_get_search_table_db_error(monkeypatch):
     search = _make_search()
     response = SimpleNamespace(text=_load_fixture("libgen_search_error_cant_connect_to_db.html"))
