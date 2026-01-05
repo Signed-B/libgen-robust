@@ -70,7 +70,11 @@ def test_get_uses_search_order_until_threshold(monkeypatch, tmp_path):
 
     monkeypatch.setattr(getter, "_execute_search", fake_execute)
     monkeypatch.setattr(Book, "get_download_links", fake_get_links)
-    monkeypatch.setattr(getter, "download", lambda book, **kwargs: tmp_path / "ok.pdf")
+    monkeypatch.setattr(
+        getter,
+        "_download_with_ssl_skip",
+        lambda book, **kwargs: tmp_path / "ok.pdf",
+    )
 
     result = getter.get(
         title="Think and Grow Rich",
@@ -81,6 +85,56 @@ def test_get_uses_search_order_until_threshold(monkeypatch, tmp_path):
     assert result == tmp_path / "ok.pdf"
     assert calls[0][1] == (SearchField.TITLE,)
     assert calls[1][1] == (SearchField.AUTHORS,)
+
+
+def test_get_skips_ssl_error_and_uses_next_candidate(monkeypatch, tmp_path):
+    getter = Getter(
+        score_threshold=5,
+        search_order=[GetQueryMethod.TITLE],
+        mirror="https://libgen.example",
+        output_dir=tmp_path,
+        max_candidates=2,
+    )
+    first_book = _make_book(
+        id="1",
+        title="Think and Grow Rich",
+        author="Napoleon Hill",
+        year="2011",
+    )
+    second_book = _make_book(
+        id="2",
+        title="Think and Grow Rich",
+        author="Napoleon Hill",
+        year="2011",
+    )
+
+    monkeypatch.setattr(getter, "_execute_search", lambda *args, **kwargs: [first_book, second_book])
+    monkeypatch.setattr(
+        Book,
+        "get_download_links",
+        lambda self, cover=True, timeout=None: setattr(
+            self, "download_link", f"https://libgen.example/get.php?md5={self.md5}"
+        ),
+    )
+
+    attempts = []
+
+    def fake_download(url, book, output_dir):
+        attempts.append(book.id)
+        if book.id == "1":
+            raise get_module.requests.exceptions.SSLError("bad ssl")
+        return output_dir / "ok.pdf"
+
+    monkeypatch.setattr(getter, "_download_file", fake_download)
+
+    result = getter.get(
+        title="Think and Grow Rich",
+        author="Napoleon Hill",
+        year=2011,
+    )
+
+    assert result == tmp_path / "ok.pdf"
+    assert attempts == ["1", "2"]
 
 
 def test_download_requires_download_link(tmp_path):
