@@ -62,6 +62,7 @@ class LibgenSearch:
         search_field: SearchField | Iterable[SearchField],
         search_objects: Iterable[SearchObject] | SearchObject,
         search_topics: Iterable[SearchTopic] | SearchTopic,
+        timeout: int | None = None,
     ):
         self._logger = logging.getLogger(__name__)
         self.query = self._validate_query(query)
@@ -76,6 +77,7 @@ class LibgenSearch:
         self.search_topics = self._normalize_enum_list(
             search_topics, SearchTopic, "search_topics"
         )
+        self.timeout = timeout
 
     def _validate_query(self, query: str) -> str:
         if not isinstance(query, str) or not query.strip():
@@ -139,9 +141,14 @@ class LibgenSearch:
     def get_search_page(self):
         params = self.build_search_params(results_per_page=100)
         try:
+            request_kwargs = {
+                "params": params,
+            }
+            if self.timeout is not None:
+                request_kwargs["timeout"] = self.timeout
             search_page = requests.get(
                 f"{self.mirror}/index.php",
-                params=params,
+                **request_kwargs,
             )
 
             search_page.raise_for_status()

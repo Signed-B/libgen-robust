@@ -62,7 +62,7 @@ class Book:
             f"date_last_modified='{self.date_last_modified}')"
         )
 
-    def get_download_links(self, cover: bool = True) -> None:
+    def get_download_links(self, cover: bool = True, timeout: int | None = None) -> None:
         if not self.download_page_link:
             raise ValueError("download_page_link must be set")
         parsed = urlparse(self.download_page_link)
@@ -71,7 +71,10 @@ class Book:
         if "/ads.php" not in parsed.path or "md5=" not in parsed.query:
             raise ValueError("download_page_link must contain /ads.php?md5=")
 
-        response = requests.get(self.download_page_link)
+        if timeout is None:
+            response = requests.get(self.download_page_link)
+        else:
+            response = requests.get(self.download_page_link, timeout=timeout)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
         base_url = f"{parsed.scheme}://{parsed.netloc}"
