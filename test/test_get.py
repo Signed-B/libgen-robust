@@ -119,7 +119,7 @@ def test_get_skips_ssl_error_and_uses_next_candidate(monkeypatch, tmp_path):
 
     attempts = []
 
-    def fake_download(url, book, output_dir):
+    def fake_download(url, book, output_dir, **_kwargs):
         attempts.append(book.id)
         if book.id == "1":
             raise get_module.requests.exceptions.SSLError("bad ssl")
@@ -178,6 +178,33 @@ def test_download_writes_file_and_uses_output_dir(monkeypatch, tmp_path):
     assert result.parent == target_dir
     assert result.name == "Example Title - Example Author - 2020 - download.pdf"
 
+def test_download_uses_request_metadata_for_filename(monkeypatch, tmp_path):
+    getter = Getter(
+        score_threshold=1,
+        search_order=[GetQueryMethod.TITLE],
+        output_dir=tmp_path,
+    )
+    book = _make_book(title="Libgen Title", author="Libgen Author", year="2010")
+    book.download_link = "/get.php?md5=abc"
+
+    response = SimpleNamespace(
+        status_code=200,
+        headers={},
+        url="https://libgen.example/get.php?md5=abc",
+    )
+    response.iter_content = lambda chunk_size=8192: [b"payload"]
+    monkeypatch.setattr(get_module.requests, "get", lambda *args, **kwargs: response)
+
+    result = getter.download(
+        book,
+        mirror="https://libgen.example",
+        request_title="Requested Title",
+        request_author="Requested Author",
+        request_year=1999,
+    )
+
+    assert result.name == "Requested Title - Requested Author - 1999 - download.pdf"
+
 
 def test_download_retries_on_retryable_error(monkeypatch, tmp_path):
     getter = Getter(
@@ -195,7 +222,7 @@ def test_download_retries_on_retryable_error(monkeypatch, tmp_path):
 
     attempts = {"count": 0}
 
-    def fake_download(url, book, output_dir):
+    def fake_download(url, book, output_dir, **_kwargs):
         attempts["count"] += 1
         if attempts["count"] < 3:
             raise RetryableDownloadError("temporary")
